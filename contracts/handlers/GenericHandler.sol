@@ -1,6 +1,6 @@
 // The Licensed Work is (c) 2022 Sygma
 // SPDX-License-Identifier: BUSL-1.1
-pragma solidity 0.8.11;
+pragma solidity ^0.7.6;
 
 import "../interfaces/IGenericHandler.sol";
 
@@ -10,6 +10,7 @@ import "../interfaces/IGenericHandler.sol";
     @notice This contract is intended to be used with the Bridge contract.
  */
 contract GenericHandler is IGenericHandler {
+    
     address public immutable _bridgeAddress;
 
     // resourceID => contract address
