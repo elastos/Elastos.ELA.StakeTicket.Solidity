@@ -1,0 +1,10 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "ERC721Safe",
+  "sourceName": "contracts/ERC721Safe.sol",
+  "abi": [],
+  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea2646970667358221220c32f017cfdbc39cc19750872519b1098ca426ee8d5ba09c286578cad26af7c6664736f6c63430007060033",
+  "deployedBytecode": "0x6080604052600080fdfea2646970667358221220c32f017cfdbc39cc19750872519b1098ca426ee8d5ba09c286578cad26af7c6664736f6c63430007060033",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}

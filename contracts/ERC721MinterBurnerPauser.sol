@@ -5,17 +5,15 @@ pragma solidity ^0.7.6;
 // This is adapted from https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.0.0/contracts/presets/ERC721PresetMinterPauserAutoId.sol
 
 import "./utils/AccessControl.sol";
-import "@openzeppelin/contracts/utils/Context.sol";
+import "@openzeppelin/contracts/GSN/Context.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Pausable.sol";
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC721Burnable.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC721Pausable.sol";
+// import "@openzeppelin/contracts/token/ERC721/ERC721URIStorage.sol";
 
-contract ERC721MinterBurnerPauser is Context, AccessControl, ERC721Burnable, ERC721Pausable, ERC721URIStorage {
+contract ERC721MinterBurnerPauser is Context, AccessControl, ERC721Burnable, ERC721Pausable{
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
     bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
-
-    string public baseURI;
 
     /**
      * @dev Grants `DEFAULT_ADMIN_ROLE` and `MINTER_ROLE`to the account that
@@ -30,7 +28,6 @@ contract ERC721MinterBurnerPauser is Context, AccessControl, ERC721Burnable, ERC
         _setupRole(MINTER_ROLE, _msgSender());
         _setupRole(PAUSER_ROLE, _msgSender());
 
-        _setBaseURI(baseURI);
     }
 
     /**
@@ -79,23 +76,12 @@ contract ERC721MinterBurnerPauser is Context, AccessControl, ERC721Burnable, ERC
         _unpause();
     }
 
-    function tokenURI(uint256 tokenId) public view virtual override(ERC721, ERC721URIStorage) returns (string memory) {
-        return super.tokenURI(tokenId);
-    }
-
     function _beforeTokenTransfer(address from, address to, uint256 tokenId) internal override(ERC721, ERC721Pausable) {
         super._beforeTokenTransfer(from, to, tokenId);
     }
 
-    function _setBaseURI(string memory baseURI_) internal {
-        baseURI = baseURI_;
-    }
 
-    function _baseURI() internal view virtual override returns (string memory) {
-        return baseURI;
-    }
-
-    function _burn(uint256 tokenId) internal virtual override(ERC721, ERC721URIStorage) {
+    function _burn(uint256 tokenId) internal virtual override(ERC721) {
         super._burn(tokenId);
     }
 }

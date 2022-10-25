@@ -2,11 +2,9 @@
 //SPDX-License-Identifier: BUSL-1.1
 pragma solidity ^0.7.6;
 
-import "@openzeppelin/contracts/utils/Context.sol";
-import "@openzeppelin/contracts/utils/cryptography/draft-EIP712.sol";
+import "@openzeppelin/contracts/GSN/Context.sol";
 import "./utils/Pausable.sol";
 
-import "./interfaces/IDepositExecute.sol";
 import "./interfaces/IERCHandler.sol";
 import "./interfaces/IGenericHandler.sol";
 import "./interfaces/IFeeHandler.sol";
@@ -16,7 +14,7 @@ import "./interfaces/IAccessControlSegregator.sol";
     @title Facilitates deposits and creation of deposit executions.
     @author ChainSafe Systems.
  */
-contract StakeTicket is Pausable, Context, EIP712 {
+contract StakeTicket is Pausable, Context {
 
     uint8   public immutable _domainID;
     address public _MPCAddress;
@@ -33,7 +31,6 @@ contract StakeTicket is Pausable, Context, EIP712 {
     event AccessControlChanged(address newAccessControl);
 
     modifier onlyAllowed() {
-        _onlyAllowed(msg.sig, _msgSender());
         _;
     }
 
@@ -41,15 +38,6 @@ contract StakeTicket is Pausable, Context, EIP712 {
         require(_accessControl.hasAccess(sig, sender), "sender doesn't have access to function");
     }
 
-    function _msgSender() internal override view returns (address) {
-        address signer = msg.sender;
-        if (msg.data.length >= 20 && isValidForwarder[signer]) {
-            assembly {
-                signer := shr(96, calldataload(sub(calldatasize(), 20)))
-            }
-        }
-        return signer;
-    }
 
     /**
         @notice Initializes Bridge, creates and grants {_msgSender()} the admin role, sets access control
@@ -57,7 +45,7 @@ contract StakeTicket is Pausable, Context, EIP712 {
         @param domainID ID of chain the Bridge contract exists on.
         @param accessControl Address of access control contract.
      */
-    constructor (uint8 domainID, address accessControl) EIP712("Bridge", "3.1.0") public {
+    constructor (uint8 domainID, address accessControl) public {
         _domainID = domainID;
         _accessControl = IAccessControlSegregator(accessControl);
 

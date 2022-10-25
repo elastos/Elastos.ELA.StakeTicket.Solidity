@@ -1,0 +1,30 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "AssertBytes",
+  "sourceName": "contracts/bytesUtils/AssertBytes.sol",
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "bool",
+          "name": "result",
+          "type": "bool"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "message",
+          "type": "string"
+        }
+      ],
+      "name": "TestEvent",
+      "type": "event"
+    }
+  ],
+  "bytecode": "0x60566023600b82828239805160001a607314601657fe5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea26469706673582212203582627bc9a9309208d7c1cca3ff28263a68abef2bf7824d64bc8553c48c5d9764736f6c63430007060033",
+  "deployedBytecode": "0x73000000000000000000000000000000000000000030146080604052600080fdfea26469706673582212203582627bc9a9309208d7c1cca3ff28263a68abef2bf7824d64bc8553c48c5d9764736f6c63430007060033",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}
