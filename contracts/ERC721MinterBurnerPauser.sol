@@ -9,9 +9,10 @@ import "@openzeppelin/contracts/GSN/Context.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721Burnable.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721Pausable.sol";
-// import "@openzeppelin/contracts/token/ERC721/ERC721URIStorage.sol";
 
 contract ERC721MinterBurnerPauser is Context, AccessControl, ERC721Burnable, ERC721Pausable{
+
+    string private _baseURI;
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
     bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
 
@@ -23,10 +24,19 @@ contract ERC721MinterBurnerPauser is Context, AccessControl, ERC721Burnable, ERC
      * See {ERC721-tokenURI}.
      */
     constructor(string memory name, string memory symbol, string memory baseURI) ERC721(name, symbol) {
-        _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());
 
+        _baseURI = baseURI;
+
+        _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());
         _setupRole(MINTER_ROLE, _msgSender());
         _setupRole(PAUSER_ROLE, _msgSender());
+
+    }
+
+    function setMinterRole(address mintAddress) public{
+
+        require(hasRole(DEFAULT_ADMIN_ROLE, _msgSender()), "ERC721MinterBurnerPauser: must have admin role to mint");
+        _setupRole(MINTER_ROLE, mintAddress);
 
     }
 
@@ -47,6 +57,8 @@ contract ERC721MinterBurnerPauser is Context, AccessControl, ERC721Burnable, ERC
         _mint(to, tokenId);
         _setTokenURI(tokenId, _data);
     }
+
+
 
     /**
      * @dev Pauses all token transfers.
@@ -84,4 +96,5 @@ contract ERC721MinterBurnerPauser is Context, AccessControl, ERC721Burnable, ERC
     function _burn(uint256 tokenId) internal virtual override(ERC721) {
         super._burn(tokenId);
     }
+
 }

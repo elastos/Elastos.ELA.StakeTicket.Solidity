@@ -1,0 +1,128 @@
+{
+  "manifestVersion": "3.2",
+  "admin": {
+    "address": "0xC13B259f37D407FF80d05a9a37925d1B1D416bAD",
+    "txHash": "0x510e19e481ea2671a9398118d85e7fc2e4bdf83360fd9326a588377b9765b672"
+  },
+  "proxies": [
+    {
+      "address": "0xD29d256Fe5F3D0F16d98eE08b79FE8572091FB3d",
+      "txHash": "0xe7662fc86519ab0ff946b0e076b95170e45f3e8fc1eb95a9a7e3fe3a56f4c04b",
+      "kind": "transparent"
+    }
+  ],
+  "impls": {
+    "7bc32f2b5adaeef1ce2bef8b767dfd95cf0ba0561cf97856093bac9015b41b2d": {
+      "address": "0xb2891C8004c4e70EC2F65A13885EB93B7be960AF",
+      "txHash": "0x9b1c43584046243427867b59f966cfb67bba30cf0501583e640b165f25d130e7",
+      "layout": {
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/Initializable.sol:25"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/Initializable.sol:30"
+          },
+          {
+            "label": "_erc721Address",
+            "offset": 2,
+            "slot": "0",
+            "type": "t_address",
+            "contract": "StakeTicket",
+            "src": "contracts/StakeTicket.sol:24"
+          },
+          {
+            "label": "_version",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_string_storage",
+            "contract": "StakeTicket",
+            "src": "contracts/StakeTicket.sol:25"
+          },
+          {
+            "label": "_idTickInfoMap",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_mapping(t_uint256,t_struct(TickInfo)3273_storage)",
+            "contract": "StakeTicket",
+            "src": "contracts/StakeTicket.sol:26"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_mapping(t_uint256,t_struct(TickInfo)3273_storage)": {
+            "label": "mapping(uint256 => struct StakeTicket.TickInfo)",
+            "numberOfBytes": "32"
+          },
+          "t_string_storage": {
+            "label": "string",
+            "numberOfBytes": "32"
+          },
+          "t_struct(TickInfo)3273_storage": {
+            "label": "struct StakeTicket.TickInfo",
+            "members": [
+              {
+                "label": "owner",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "amount",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "startTimeSpan",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "2"
+              },
+              {
+                "label": "supperNode",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "3"
+              },
+              {
+                "label": "txHash",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "4"
+              },
+              {
+                "label": "withDrawTo",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "5"
+              }
+            ],
+            "numberOfBytes": "192"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          }
+        }
+      }
+    }
+  }
+}

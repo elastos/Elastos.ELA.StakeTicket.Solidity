@@ -1,176 +1,122 @@
 //The Licensed Work is (c) 2022 Sygma
 //SPDX-License-Identifier: BUSL-1.1
 pragma solidity ^0.7.6;
+pragma experimental ABIEncoderV2;
 
-import "@openzeppelin/contracts/GSN/Context.sol";
-import "./utils/Pausable.sol";
-
-import "./interfaces/IERCHandler.sol";
-import "./interfaces/IGenericHandler.sol";
-import "./interfaces/IFeeHandler.sol";
-import "./interfaces/IAccessControlSegregator.sol";
+import "./ERC721MinterBurnerPauser.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/Initializable.sol";
 
 /**
     @title Facilitates deposits and creation of deposit executions.
     @author ChainSafe Systems.
  */
-contract StakeTicket is Pausable, Context {
+contract StakeTicket is Initializable{
 
-    uint8   public immutable _domainID;
-    address public _MPCAddress;
-
-    IFeeHandler public _feeHandler;
-    IAccessControlSegregator public _accessControl;
-
-    // resourceID => handler address
-    mapping(bytes32 => address) public _resourceIDToHandlerAddress;
-    // forwarder address => is Valid
-    mapping(address => bool) public isValidForwarder;
-
-    event FeeHandlerChanged(address newFeeHandler);
-    event AccessControlChanged(address newAccessControl);
-
-    modifier onlyAllowed() {
-        _;
+    struct TickInfo{
+        address owner;
+        uint256 amount;
+        uint256 startTimeSpan;
+        string supperNode;
+        string txHash;
+        string withDrawTo;
     }
 
-    function _onlyAllowed(bytes4 sig, address sender) private view {
-        require(_accessControl.hasAccess(sig, sender), "sender doesn't have access to function");
+    address private _erc721Address;
+    string private _version;
+    mapping(uint256 => TickInfo) internal _idTickInfoMap;
+
+    /**
+     * @dev __StakeTicket_init
+       @param erc721Address erc721 token address
+       @param version stake ticket version
+     */
+    function __StakeTicket_init(
+      address erc721Address,
+      string memory version
+    ) public initializer{
+
+        _erc721Address = erc721Address;
+        _version = version;
+          
+    }
+
+    /**
+        @notice mint the stake tick
+        @param to the address of ERC721 
+        @param tokenId nft id of the ERC721
+        @param _data data of the ERC721
+        @param amount amount of the ela Stake 
+        @param startTimeSpan start timespan of the start stake time
+        @param supperNode supper node info
+        @param txHash stake txid 
+     */
+    function mintTick(
+        address to, 
+        uint256 tokenId, 
+        string memory _data,
+        uint256 amount,
+        uint256 startTimeSpan,
+        string memory supperNode,
+        string memory txHash) public {
+       
+       require(amount > 0,"stake amount must larger than 0");
+       
+       _idTickInfoMap[tokenId].amount = amount;
+       _idTickInfoMap[tokenId].startTimeSpan = startTimeSpan;
+       _idTickInfoMap[tokenId].supperNode = supperNode;
+       _idTickInfoMap[tokenId].txHash = txHash;
+       _idTickInfoMap[tokenId].owner = to;
+
+        ERC721MinterBurnerPauser(_erc721Address).mint(to,tokenId,_data);
     }
 
 
     /**
-        @notice Initializes Bridge, creates and grants {_msgSender()} the admin role, sets access control
-        contract for bridge and sets the inital state of the Bridge to paused.
-        @param domainID ID of chain the Bridge contract exists on.
-        @param accessControl Address of access control contract.
+        @notice mint the stake tick
+        @param tokenId nft id of the ERC721
      */
-    constructor (uint8 domainID, address accessControl) public {
-        _domainID = domainID;
-        _accessControl = IAccessControlSegregator(accessControl);
+    function getTickFromTokenId(uint256 tokenId) public view returns(TickInfo memory){
+       
+       require(tokenId > 0,"token id must larger than 0");
+       return _idTickInfoMap[tokenId];
 
-        _pause(_msgSender());
     }
 
     /**
-        @notice Pauses deposits, proposal creation and voting, and deposit executions.
-        @notice Only callable by address that has the right to call the specific function,
-        which is mapped in {functionAccess} in AccessControlSegregator contract.
+        @notice burn the stake tick
+        @param tokenId nft id of the ERC721
      */
-    function adminPauseTransfers() external onlyAllowed {
-        _pause(_msgSender());
+    function burnTick(uint256 tokenId) public {
+       
+       require(tokenId > 0,"stake amount must larger than 0");
+
+       ERC721MinterBurnerPauser(_erc721Address).burn(tokenId);
+       delete _idTickInfoMap[tokenId];  
     }
 
     /**
-        @notice Unpauses deposits, proposal creation and voting, and deposit executions.
-        @notice Only callable by address that has the right to call the specific function,
-        which is mapped in {functionAccess} in AccessControlSegregator contract.
-        @notice MPC address has to be set before Bridge can be unpaused
+        @notice tranfer the stake tick
+        @param tokenId nft id of the ERC721
      */
-    function adminUnpauseTransfers() external onlyAllowed {
-        require(_MPCAddress != address(0), "MPC address not set");
-        _unpause(_msgSender());
+    function tranferTick(address to,uint256 tokenId) public {
+       
+       require(tokenId > 0,"stake amount must larger than 0");
+
+       ERC721MinterBurnerPauser(_erc721Address).safeTransferFrom(msg.sender,to,tokenId);
+       _idTickInfoMap[tokenId].owner = to;
+
     }
 
     /**
-        @notice Sets a new resource for handler contracts that use the IERCHandler interface,
-        and maps the {handlerAddress} to {resourceID} in {_resourceIDToHandlerAddress}.
-        @notice Only callable by address that has the right to call the specific function,
-        which is mapped in {functionAccess} in AccessControlSegregator contract.
-        @param handlerAddress Address of handler resource will be set for.
-        @param resourceID ResourceID to be used when making deposits.
-        @param tokenAddress Address of contract to be called when a deposit is made and a deposited is executed.
+        @notice withDraw the stake tick
+        @param tokenId nft id of the ERC721
      */
-    function adminSetResource(address handlerAddress, bytes32 resourceID, address tokenAddress) external onlyAllowed {
-        _resourceIDToHandlerAddress[resourceID] = handlerAddress;
-        IERCHandler handler = IERCHandler(handlerAddress);
-        handler.setResource(resourceID, tokenAddress);
+    function withDrawTick(uint256 tokenId,string memory withDrawTo) public {
+       
+       require(tokenId > 0,"stake amount must larger than 0");
+       require(msg.sender == _idTickInfoMap[tokenId].owner,"ticket owner is not collect");
+
+       _idTickInfoMap[tokenId].withDrawTo = withDrawTo;
+
     }
-
-    /**
-        @notice Sets a new resource for handler contracts that use the IGenericHandler interface,
-        and maps the {handlerAddress} to {resourceID} in {_resourceIDToHandlerAddress}.
-        @notice Only callable by address that has the right to call the specific function,
-        which is mapped in {functionAccess} in AccessControlSegregator contract.
-        @param handlerAddress Address of handler resource will be set for.
-        @param resourceID ResourceID to be used when making deposits.
-        @param contractAddress Address of contract to be called when a deposit is made and a deposited is executed.
-        @param depositFunctionSig Function signature of method to be called in {contractAddress} when a deposit is made.
-        @param depositFunctionDepositorOffset Depositor address position offset in the metadata, in bytes.
-        @param executeFunctionSig Function signature of method to be called in {contractAddress} when a deposit is executed.
-     */
-    function adminSetGenericResource(
-        address handlerAddress,
-        bytes32 resourceID,
-        address contractAddress,
-        bytes4 depositFunctionSig,
-        uint256 depositFunctionDepositorOffset,
-        bytes4 executeFunctionSig
-    ) external onlyAllowed {
-        _resourceIDToHandlerAddress[resourceID] = handlerAddress;
-        IGenericHandler handler = IGenericHandler(handlerAddress);
-        handler.setResource(resourceID, contractAddress, depositFunctionSig, depositFunctionDepositorOffset, executeFunctionSig);
-    }
-
-    /**
-        @notice Sets a resource as burnable for handler contracts that use the IERCHandler interface.
-        @notice Only callable by address that has the right to call the specific function,
-        which is mapped in {functionAccess} in AccessControlSegregator contract.
-        @param handlerAddress Address of handler resource will be set for.
-        @param tokenAddress Address of contract to be called when a deposit is made and a deposited is executed.
-     */
-    function adminSetBurnable(address handlerAddress, address tokenAddress) external onlyAllowed {
-        IERCHandler handler = IERCHandler(handlerAddress);
-        handler.setBurnable(tokenAddress);
-    }
-
-    /**
-        @notice Set a forwarder to be used.
-        @notice Only callable by address that has the right to call the specific function,
-        which is mapped in {functionAccess} in AccessControlSegregator contract.
-        @param forwarder Forwarder address to be added.
-        @param valid Decision for the specific forwarder.
-     */
-    function adminSetForwarder(address forwarder, bool valid) external onlyAllowed {
-        isValidForwarder[forwarder] = valid;
-    }
-
-    /**
-        @notice Changes access control contract address.
-        @notice Only callable by address that has the right to call the specific function,
-        which is mapped in {functionAccess} in AccessControlSegregator contract.
-        @param newAccessControl Address {_accessControl} will be updated to.
-     */
-    function adminChangeAccessControl(address newAccessControl) external onlyAllowed {
-        _accessControl = IAccessControlSegregator(newAccessControl);
-        emit AccessControlChanged(newAccessControl);
-    }
-
-    /**
-        @notice Changes deposit fee handler contract address.
-        @notice Only callable by address that has the right to call the specific function,
-        which is mapped in {functionAccess} in AccessControlSegregator contract.
-        @param newFeeHandler Address {_feeHandler} will be updated to.
-     */
-    function adminChangeFeeHandler(address newFeeHandler) external onlyAllowed {
-        _feeHandler = IFeeHandler(newFeeHandler);
-        emit FeeHandlerChanged(newFeeHandler);
-    }
-
-    /**
-        @notice Used to manually withdraw funds from ERC safes.
-        @notice Only callable by address that has the right to call the specific function,
-        which is mapped in {functionAccess} in AccessControlSegregator contract.
-        @param handlerAddress Address of handler to withdraw from.
-        @param data ABI-encoded withdrawal params relevant to the specified handler.
-     */
-    function adminWithdraw(
-        address handlerAddress,
-        bytes memory data
-    ) external onlyAllowed {
-        IERCHandler handler = IERCHandler(handlerAddress);
-        handler.withdraw(data);
-    }
-
-
 }

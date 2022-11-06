@@ -128,8 +128,8 @@
       ]
     },
     "/Users/xuxinlai/work/Elastos.ELA.StakeTicket.Solidity/contracts/ERC721MinterBurnerPauser.sol": {
-      "lastModificationDate": 1666656163666,
-      "contentHash": "19255667cef399836ca98141a084c373",
+      "lastModificationDate": 1667729575466,
+      "contentHash": "1e028ce30e6b5c32ecfeb33871e076e4",
       "sourceName": "contracts/ERC721MinterBurnerPauser.sol",
       "solcConfig": {
         "version": "0.7.6",
@@ -222,7 +222,7 @@
       ]
     },
     "/Users/xuxinlai/work/Elastos.ELA.StakeTicket.Solidity/node_modules/@openzeppelin/contracts/GSN/Context.sol": {
-      "lastModificationDate": 1666569142408,
+      "lastModificationDate": 1667703792618,
       "contentHash": "688fc161386f66688d0ea676f67dabe7",
       "sourceName": "@openzeppelin/contracts/GSN/Context.sol",
       "solcConfig": {
@@ -264,7 +264,7 @@
       ]
     },
     "/Users/xuxinlai/work/Elastos.ELA.StakeTicket.Solidity/node_modules/@openzeppelin/contracts/utils/Counters.sol": {
-      "lastModificationDate": 1666569142535,
+      "lastModificationDate": 1667703792628,
       "contentHash": "ebd32d219072a0232add3f1bb610731f",
       "sourceName": "@openzeppelin/contracts/utils/Counters.sol",
       "solcConfig": {
@@ -308,7 +308,7 @@
       ]
     },
     "/Users/xuxinlai/work/Elastos.ELA.StakeTicket.Solidity/node_modules/@openzeppelin/contracts/token/ERC721/ERC721Burnable.sol": {
-      "lastModificationDate": 1666569149031,
+      "lastModificationDate": 1667703798158,
       "contentHash": "380389137e164f8a08073d662858ff1e",
       "sourceName": "@openzeppelin/contracts/token/ERC721/ERC721Burnable.sol",
       "solcConfig": {
@@ -353,7 +353,7 @@
       ]
     },
     "/Users/xuxinlai/work/Elastos.ELA.StakeTicket.Solidity/node_modules/@openzeppelin/contracts/token/ERC721/ERC721Pausable.sol": {
-      "lastModificationDate": 1666569149032,
+      "lastModificationDate": 1667703798158,
       "contentHash": "0f97f1c6ce8eabb937c444621d8f0edb",
       "sourceName": "@openzeppelin/contracts/token/ERC721/ERC721Pausable.sol",
       "solcConfig": {
@@ -398,7 +398,7 @@
       ]
     },
     "/Users/xuxinlai/work/Elastos.ELA.StakeTicket.Solidity/node_modules/@openzeppelin/contracts/utils/EnumerableSet.sol": {
-      "lastModificationDate": 1666569142469,
+      "lastModificationDate": 1667703792629,
       "contentHash": "c7cd472e6aece24979547ce2164d99d5",
       "sourceName": "@openzeppelin/contracts/utils/EnumerableSet.sol",
       "solcConfig": {
@@ -440,7 +440,7 @@
       ]
     },
     "/Users/xuxinlai/work/Elastos.ELA.StakeTicket.Solidity/node_modules/@openzeppelin/contracts/utils/Address.sol": {
-      "lastModificationDate": 1666569142469,
+      "lastModificationDate": 1667703792627,
       "contentHash": "96b05cb023e664b2c833ec166de51d25",
       "sourceName": "@openzeppelin/contracts/utils/Address.sol",
       "solcConfig": {
@@ -482,7 +482,7 @@
       ]
     },
     "/Users/xuxinlai/work/Elastos.ELA.StakeTicket.Solidity/node_modules/@openzeppelin/contracts/math/SafeMath.sol": {
-      "lastModificationDate": 1666569142435,
+      "lastModificationDate": 1667703792626,
       "contentHash": "1d90542b583d3152a80af62d830357a0",
       "sourceName": "@openzeppelin/contracts/math/SafeMath.sol",
       "solcConfig": {
@@ -524,8 +524,8 @@
       ]
     },
     "/Users/xuxinlai/work/Elastos.ELA.StakeTicket.Solidity/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol": {
-      "lastModificationDate": 1666656095621,
-      "contentHash": "2680a9693924d1dcd5751e27d9dc7196",
+      "lastModificationDate": 1667703798158,
+      "contentHash": "9ca69f10047ae6209618a2ebe20a3aef",
       "sourceName": "@openzeppelin/contracts/token/ERC721/ERC721.sol",
       "solcConfig": {
         "version": "0.7.6",
@@ -578,7 +578,7 @@
       ]
     },
     "/Users/xuxinlai/work/Elastos.ELA.StakeTicket.Solidity/node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol": {
-      "lastModificationDate": 1666569149032,
+      "lastModificationDate": 1667703798158,
       "contentHash": "55950cb0ba37a9730d7b5218dde7f6ea",
       "sourceName": "@openzeppelin/contracts/token/ERC721/IERC721.sol",
       "solcConfig": {
@@ -622,7 +622,7 @@
       ]
     },
     "/Users/xuxinlai/work/Elastos.ELA.StakeTicket.Solidity/node_modules/@openzeppelin/contracts/token/ERC721/IERC721Metadata.sol": {
-      "lastModificationDate": 1666569149032,
+      "lastModificationDate": 1667703798162,
       "contentHash": "7fe751b35ebe8466b56415cce55a7074",
       "sourceName": "@openzeppelin/contracts/token/ERC721/IERC721Metadata.sol",
       "solcConfig": {
@@ -666,7 +666,7 @@
       ]
     },
     "/Users/xuxinlai/work/Elastos.ELA.StakeTicket.Solidity/node_modules/@openzeppelin/contracts/token/ERC721/IERC721Enumerable.sol": {
-      "lastModificationDate": 1666569149032,
+      "lastModificationDate": 1667703798159,
       "contentHash": "889ec04fca4214581eef408fff230efa",
       "sourceName": "@openzeppelin/contracts/token/ERC721/IERC721Enumerable.sol",
       "solcConfig": {
@@ -710,7 +710,7 @@
       ]
     },
     "/Users/xuxinlai/work/Elastos.ELA.StakeTicket.Solidity/node_modules/@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol": {
-      "lastModificationDate": 1666569149032,
+      "lastModificationDate": 1667703798162,
       "contentHash": "c269b7f725a3fbd49ccadc39666cc8eb",
       "sourceName": "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol",
       "solcConfig": {
@@ -752,7 +752,7 @@
       ]
     },
     "/Users/xuxinlai/work/Elastos.ELA.StakeTicket.Solidity/node_modules/@openzeppelin/contracts/introspection/ERC165.sol": {
-      "lastModificationDate": 1666569142435,
+      "lastModificationDate": 1667703792618,
       "contentHash": "4a99ffe8a02866095d18c34e35c586bf",
       "sourceName": "@openzeppelin/contracts/introspection/ERC165.sol",
       "solcConfig": {
@@ -796,7 +796,7 @@
       ]
     },
     "/Users/xuxinlai/work/Elastos.ELA.StakeTicket.Solidity/node_modules/@openzeppelin/contracts/utils/EnumerableMap.sol": {
-      "lastModificationDate": 1666569142469,
+      "lastModificationDate": 1667703792628,
       "contentHash": "72131b6d0aea748c596af6431f5baa59",
       "sourceName": "@openzeppelin/contracts/utils/EnumerableMap.sol",
       "solcConfig": {
@@ -838,7 +838,7 @@
       ]
     },
     "/Users/xuxinlai/work/Elastos.ELA.StakeTicket.Solidity/node_modules/@openzeppelin/contracts/utils/Strings.sol": {
-      "lastModificationDate": 1666569142480,
+      "lastModificationDate": 1667703792634,
       "contentHash": "7a96fa37843aeb0601d1c4e7d6066dd6",
       "sourceName": "@openzeppelin/contracts/utils/Strings.sol",
       "solcConfig": {
@@ -880,7 +880,7 @@
       ]
     },
     "/Users/xuxinlai/work/Elastos.ELA.StakeTicket.Solidity/node_modules/@openzeppelin/contracts/introspection/IERC165.sol": {
-      "lastModificationDate": 1666569142435,
+      "lastModificationDate": 1667703792619,
       "contentHash": "253edeb099cfd6a3b0501d2620312e3e",
       "sourceName": "@openzeppelin/contracts/introspection/IERC165.sol",
       "solcConfig": {
@@ -922,7 +922,7 @@
       ]
     },
     "/Users/xuxinlai/work/Elastos.ELA.StakeTicket.Solidity/node_modules/@openzeppelin/contracts/utils/Pausable.sol": {
-      "lastModificationDate": 1666569142469,
+      "lastModificationDate": 1667703792629,
       "contentHash": "19e955bb54212f147f891c6bdc8398c3",
       "sourceName": "@openzeppelin/contracts/utils/Pausable.sol",
       "solcConfig": {
@@ -963,6 +963,137 @@
       ],
       "artifacts": [
         "Pausable"
+      ]
+    },
+    "/Users/xuxinlai/work/Elastos.ELA.StakeTicket.Solidity/contracts/StakeTicket.sol": {
+      "lastModificationDate": 1667733121966,
+      "contentHash": "a56ce408055c3ef497238cf5d2ee7ea3",
+      "sourceName": "contracts/StakeTicket.sol",
+      "solcConfig": {
+        "version": "0.7.6",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./ERC721MinterBurnerPauser.sol",
+        "@openzeppelin/contracts-upgradeable/proxy/Initializable.sol"
+      ],
+      "versionPragmas": [
+        "^0.7.6"
+      ],
+      "artifacts": [
+        "StakeTicket"
+      ]
+    },
+    "/Users/xuxinlai/work/Elastos.ELA.StakeTicket.Solidity/node_modules/@openzeppelin/contracts-upgradeable/proxy/Initializable.sol": {
+      "lastModificationDate": 1667703792294,
+      "contentHash": "71b3ac8d4da61bb6c6708c12f56e3c1f",
+      "sourceName": "@openzeppelin/contracts-upgradeable/proxy/Initializable.sol",
+      "solcConfig": {
+        "version": "0.7.6",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../utils/AddressUpgradeable.sol"
+      ],
+      "versionPragmas": [
+        ">=0.4.24 <0.8.0"
+      ],
+      "artifacts": [
+        "Initializable"
+      ]
+    },
+    "/Users/xuxinlai/work/Elastos.ELA.StakeTicket.Solidity/node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol": {
+      "lastModificationDate": 1667703792311,
+      "contentHash": "aa72beb3bf14f8394b4a8a292d66589c",
+      "sourceName": "@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol",
+      "solcConfig": {
+        "version": "0.7.6",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.6.2 <0.8.0"
+      ],
+      "artifacts": [
+        "AddressUpgradeable"
       ]
     },
     "/Users/xuxinlai/work/Elastos.ELA.StakeTicket.Solidity/contracts/ERC721Safe.sol": {
@@ -1102,7 +1233,7 @@
       ]
     },
     "/Users/xuxinlai/work/Elastos.ELA.StakeTicket.Solidity/node_modules/@openzeppelin/contracts/introspection/ERC165Checker.sol": {
-      "lastModificationDate": 1666569142435,
+      "lastModificationDate": 1667703792618,
       "contentHash": "604f29a63d93c555c4ffd9a678434af3",
       "sourceName": "@openzeppelin/contracts/introspection/ERC165Checker.sol",
       "solcConfig": {
@@ -1185,223 +1316,6 @@
         "IERCHandler"
       ]
     },
-    "/Users/xuxinlai/work/Elastos.ELA.StakeTicket.Solidity/contracts/StakeTicket.sol": {
-      "lastModificationDate": 1666656281034,
-      "contentHash": "b45bff71ad561b6fff13042eb0b0ff77",
-      "sourceName": "contracts/StakeTicket.sol",
-      "solcConfig": {
-        "version": "0.7.6",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "devdoc",
-                "userdoc",
-                "storageLayout",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/GSN/Context.sol",
-        "./utils/Pausable.sol",
-        "./interfaces/IERCHandler.sol",
-        "./interfaces/IGenericHandler.sol",
-        "./interfaces/IFeeHandler.sol",
-        "./interfaces/IAccessControlSegregator.sol"
-      ],
-      "versionPragmas": [
-        "^0.7.6"
-      ],
-      "artifacts": [
-        "StakeTicket"
-      ]
-    },
-    "/Users/xuxinlai/work/Elastos.ELA.StakeTicket.Solidity/contracts/utils/Pausable.sol": {
-      "lastModificationDate": 1663978368767,
-      "contentHash": "76be65cd01e6abad29761c87e3dcfc64",
-      "sourceName": "contracts/utils/Pausable.sol",
-      "solcConfig": {
-        "version": "0.7.6",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "devdoc",
-                "userdoc",
-                "storageLayout",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.7.6"
-      ],
-      "artifacts": [
-        "Pausable"
-      ]
-    },
-    "/Users/xuxinlai/work/Elastos.ELA.StakeTicket.Solidity/contracts/interfaces/IGenericHandler.sol": {
-      "lastModificationDate": 1663978368726,
-      "contentHash": "9d7aa5f06ec122d4b72a3a11580bf5d2",
-      "sourceName": "contracts/interfaces/IGenericHandler.sol",
-      "solcConfig": {
-        "version": "0.7.6",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "devdoc",
-                "userdoc",
-                "storageLayout",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.7.6"
-      ],
-      "artifacts": [
-        "IGenericHandler"
-      ]
-    },
-    "/Users/xuxinlai/work/Elastos.ELA.StakeTicket.Solidity/contracts/interfaces/IFeeHandler.sol": {
-      "lastModificationDate": 1666658363395,
-      "contentHash": "996e24ee57e88f522f1d983dd7988b7d",
-      "sourceName": "contracts/interfaces/IFeeHandler.sol",
-      "solcConfig": {
-        "version": "0.7.6",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "devdoc",
-                "userdoc",
-                "storageLayout",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.7.6"
-      ],
-      "artifacts": [
-        "IFeeHandler"
-      ]
-    },
-    "/Users/xuxinlai/work/Elastos.ELA.StakeTicket.Solidity/contracts/interfaces/IAccessControlSegregator.sol": {
-      "lastModificationDate": 1663978368727,
-      "contentHash": "832e672c8ec14a647a7ee7f1d38dcd95",
-      "sourceName": "contracts/interfaces/IAccessControlSegregator.sol",
-      "solcConfig": {
-        "version": "0.7.6",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "devdoc",
-                "userdoc",
-                "storageLayout",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.7.6"
-      ],
-      "artifacts": [
-        "IAccessControlSegregator"
-      ]
-    },
     "/Users/xuxinlai/work/Elastos.ELA.StakeTicket.Solidity/contracts/handlers/FeeHandlerRouter.sol": {
       "lastModificationDate": 1666658449185,
       "contentHash": "2ebed143e3c757b90c24b938b5a15d27",
@@ -1445,6 +1359,48 @@
       ],
       "artifacts": [
         "FeeHandlerRouter"
+      ]
+    },
+    "/Users/xuxinlai/work/Elastos.ELA.StakeTicket.Solidity/contracts/interfaces/IFeeHandler.sol": {
+      "lastModificationDate": 1666658363395,
+      "contentHash": "996e24ee57e88f522f1d983dd7988b7d",
+      "sourceName": "contracts/interfaces/IFeeHandler.sol",
+      "solcConfig": {
+        "version": "0.7.6",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.7.6"
+      ],
+      "artifacts": [
+        "IFeeHandler"
       ]
     },
     "/Users/xuxinlai/work/Elastos.ELA.StakeTicket.Solidity/contracts/handlers/fee/FeeHandlerWithOracle.sol": {
@@ -1496,7 +1452,7 @@
       ]
     },
     "/Users/xuxinlai/work/Elastos.ELA.StakeTicket.Solidity/node_modules/@openzeppelin/contracts/cryptography/ECDSA.sol": {
-      "lastModificationDate": 1666569142435,
+      "lastModificationDate": 1667703792621,
       "contentHash": "efa0875304bfb512823c72826d1a2c2d",
       "sourceName": "@openzeppelin/contracts/cryptography/ECDSA.sol",
       "solcConfig": {
@@ -1538,7 +1494,7 @@
       ]
     },
     "/Users/xuxinlai/work/Elastos.ELA.StakeTicket.Solidity/node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol": {
-      "lastModificationDate": 1666569149047,
+      "lastModificationDate": 1667703798076,
       "contentHash": "70ec621ea910798b6c590a0b402a5bb9",
       "sourceName": "@openzeppelin/contracts/token/ERC20/IERC20.sol",
       "solcConfig": {
@@ -1668,6 +1624,90 @@
         "GenericHandler"
       ]
     },
+    "/Users/xuxinlai/work/Elastos.ELA.StakeTicket.Solidity/contracts/interfaces/IGenericHandler.sol": {
+      "lastModificationDate": 1663978368726,
+      "contentHash": "9d7aa5f06ec122d4b72a3a11580bf5d2",
+      "sourceName": "contracts/interfaces/IGenericHandler.sol",
+      "solcConfig": {
+        "version": "0.7.6",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.7.6"
+      ],
+      "artifacts": [
+        "IGenericHandler"
+      ]
+    },
+    "/Users/xuxinlai/work/Elastos.ELA.StakeTicket.Solidity/contracts/interfaces/IAccessControlSegregator.sol": {
+      "lastModificationDate": 1663978368727,
+      "contentHash": "832e672c8ec14a647a7ee7f1d38dcd95",
+      "sourceName": "contracts/interfaces/IAccessControlSegregator.sol",
+      "solcConfig": {
+        "version": "0.7.6",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.7.6"
+      ],
+      "artifacts": [
+        "IAccessControlSegregator"
+      ]
+    },
     "/Users/xuxinlai/work/Elastos.ELA.StakeTicket.Solidity/contracts/interfaces/IStakeTicket.sol": {
       "lastModificationDate": 1663978775897,
       "contentHash": "b5bd29a78d4fb9428c02c3026ce317c6",
@@ -1755,7 +1795,7 @@
       ]
     },
     "/Users/xuxinlai/work/Elastos.ELA.StakeTicket.Solidity/node_modules/hardhat/console.sol": {
-      "lastModificationDate": 1666569138996,
+      "lastModificationDate": 1667703789949,
       "contentHash": "cc4777addd464ea56fa35b1c45df0591",
       "sourceName": "hardhat/console.sol",
       "solcConfig": {
@@ -1836,6 +1876,48 @@
       ],
       "artifacts": [
         "AccessControlSegregator"
+      ]
+    },
+    "/Users/xuxinlai/work/Elastos.ELA.StakeTicket.Solidity/contracts/utils/Pausable.sol": {
+      "lastModificationDate": 1663978368767,
+      "contentHash": "76be65cd01e6abad29761c87e3dcfc64",
+      "sourceName": "contracts/utils/Pausable.sol",
+      "solcConfig": {
+        "version": "0.7.6",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.7.6"
+      ],
+      "artifacts": [
+        "Pausable"
       ]
     }
   }
