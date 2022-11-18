@@ -5,12 +5,14 @@ pragma experimental ABIEncoderV2;
 
 import "./ERC721MinterBurnerPauser.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/Initializable.sol";
+import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+import "./Arbiter.sol";
 
 /**
     @title Facilitates deposits and creation of deposit executions.
     @author ChainSafe Systems.
  */
-contract StakeTicket is Initializable{
+contract StakeTicket is Initializable,OwnableUpgradeable,Arbiter{
 
     struct TickInfo{
         address owner;
@@ -25,6 +27,25 @@ contract StakeTicket is Initializable{
     string private _version;
     mapping(uint256 => TickInfo) internal _idTickInfoMap;
 
+    event StakeTicketMint(
+        address to, 
+        uint256 tokenId, 
+        string  data,
+        uint256 amount,
+        uint256 startTimeSpan,
+        string  supperNode,
+        string  txHash
+    );
+
+    event StakeTicketBurn(
+        address owner,
+        uint256 amount,
+        uint256 startTimeSpan,
+        string supperNode,
+        string txHash,
+        string withDrawTo
+    );
+
     /**
      * @dev __StakeTicket_init
        @param erc721Address erc721 token address
@@ -33,10 +54,12 @@ contract StakeTicket is Initializable{
     function __StakeTicket_init(
       address erc721Address,
       string memory version
-    ) public initializer{
+    ) public initializer {
 
         _erc721Address = erc721Address;
         _version = version;
+
+        __Ownable_init();
           
     }
 
@@ -44,7 +67,7 @@ contract StakeTicket is Initializable{
         @notice mint the stake tick
         @param to the address of ERC721 
         @param tokenId nft id of the ERC721
-        @param _data data of the ERC721
+        @param data data of the ERC721
         @param amount amount of the ela Stake 
         @param startTimeSpan start timespan of the start stake time
         @param supperNode supper node info
@@ -53,13 +76,23 @@ contract StakeTicket is Initializable{
     function mintTick(
         address to, 
         uint256 tokenId, 
-        string memory _data,
+        string memory data,
         uint256 amount,
         uint256 startTimeSpan,
         string memory supperNode,
-        string memory txHash) public {
+        string memory txHash,
+        string memory pubKey,
+        string memory sign) public {
        
        require(amount > 0,"stake amount must larger than 0");
+
+        bool isVerified = false;
+        string memory signData = string(abi.encodePacked(
+            to,tokenId,data,amount,startTimeSpan,supperNode,txHash
+        ));
+       
+       isVerified = p256Verify(pubKey, signData, sign);
+       require(isVerified,"p256Verify do not pass !");
        
        _idTickInfoMap[tokenId].amount = amount;
        _idTickInfoMap[tokenId].startTimeSpan = startTimeSpan;
@@ -67,7 +100,16 @@ contract StakeTicket is Initializable{
        _idTickInfoMap[tokenId].txHash = txHash;
        _idTickInfoMap[tokenId].owner = to;
 
-        ERC721MinterBurnerPauser(_erc721Address).mint(to,tokenId,_data);
+       ERC721MinterBurnerPauser(_erc721Address).mint(to,tokenId,data);
+       emit StakeTicketMint(
+            to,
+            tokenId,
+            data,
+            amount,
+            startTimeSpan,
+            supperNode,
+            txHash
+       );
     }
 
 
@@ -91,7 +133,17 @@ contract StakeTicket is Initializable{
        require(tokenId > 0,"stake amount must larger than 0");
 
        ERC721MinterBurnerPauser(_erc721Address).burn(tokenId);
-       delete _idTickInfoMap[tokenId];  
+       
+       emit StakeTicketBurn(
+            _idTickInfoMap[tokenId].owner,
+            _idTickInfoMap[tokenId].amount,
+            _idTickInfoMap[tokenId].startTimeSpan,
+            _idTickInfoMap[tokenId].supperNode,
+            _idTickInfoMap[tokenId].txHash,
+            _idTickInfoMap[tokenId].withDrawTo
+       );
+
+       delete _idTickInfoMap[tokenId];     
     }
 
     /**
