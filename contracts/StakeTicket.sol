@@ -30,7 +30,6 @@ contract StakeTicket is Initializable,OwnableUpgradeable,Arbiter{
     event StakeTicketMint(
         address to, 
         uint256 tokenId, 
-        uint256 amount,
         uint256 startTimeSpan,
         bytes32  txHash
     );
@@ -65,31 +64,25 @@ contract StakeTicket is Initializable,OwnableUpgradeable,Arbiter{
         @notice mint the stake tick
         @param to the address of ERC721 
         @param tokenId nft id of the ERC721
-        @param amount amount of the ela Stake
-        @param pubKey pubKey for check 
-        @param sign signature data to check
+        @param txHash tx hash of from the spv
      */
     function mintTick(
         address to, 
         uint256 tokenId, 
-        uint256 amount,
-        string memory pubKey,
-        string memory sign) public {
+        bytes32 txHash
+        ) public {
        
-       require(amount > 0,"stake amount must larger than 0");
-
         bool isVerified = false;
         bytes32 txHash = bytes32(0);
 
         //TODO txHash need to set
-        string memory signData = string(abi.encodePacked(
-            to,tokenId,amount,txHash
-        ));
-       
-       isVerified = p256Verify(pubKey, signData, sign);
-       require(isVerified,"p256Verify do not pass !");
-       
-       _idTickInfoMap[tokenId].amount = amount;
+        //check from the pre compiled contract function
+    //     string memory signData = string(abi.encodePacked(
+    //         to,tokenId,amount,txHash
+    //     ));
+    //    isVerified = p256Verify(pubKey, signData, sign);
+    //    require(isVerified,"p256Verify do not pass !");
+    
        _idTickInfoMap[tokenId].startTimeSpan = block.timestamp;
        //_idTickInfoMap[tokenId].supperNode = supperNode;
        _idTickInfoMap[tokenId].txHash = txHash;
@@ -99,7 +92,6 @@ contract StakeTicket is Initializable,OwnableUpgradeable,Arbiter{
        emit StakeTicketMint(
             to,
             tokenId,
-            amount,
             block.timestamp,
             txHash
        );
