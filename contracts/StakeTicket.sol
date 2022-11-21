@@ -19,7 +19,7 @@ contract StakeTicket is Initializable,OwnableUpgradeable,Arbiter{
         uint256 amount;
         uint256 startTimeSpan;
         string supperNode;
-        string txHash;
+        bytes32 txHash;
         string withDrawTo;
     }
 
@@ -30,11 +30,9 @@ contract StakeTicket is Initializable,OwnableUpgradeable,Arbiter{
     event StakeTicketMint(
         address to, 
         uint256 tokenId, 
-        string  data,
         uint256 amount,
         uint256 startTimeSpan,
-        string  supperNode,
-        string  txHash
+        bytes32  txHash
     );
 
     event StakeTicketBurn(
@@ -42,7 +40,7 @@ contract StakeTicket is Initializable,OwnableUpgradeable,Arbiter{
         uint256 amount,
         uint256 startTimeSpan,
         string supperNode,
-        string txHash,
+        bytes32 txHash,
         string withDrawTo
     );
 
@@ -67,47 +65,42 @@ contract StakeTicket is Initializable,OwnableUpgradeable,Arbiter{
         @notice mint the stake tick
         @param to the address of ERC721 
         @param tokenId nft id of the ERC721
-        @param data data of the ERC721
-        @param amount amount of the ela Stake 
-        @param startTimeSpan start timespan of the start stake time
-        @param supperNode supper node info
-        @param txHash stake txid 
+        @param amount amount of the ela Stake
+        @param pubKey pubKey for check 
+        @param sign signature data to check
      */
     function mintTick(
         address to, 
         uint256 tokenId, 
-        string memory data,
         uint256 amount,
-        uint256 startTimeSpan,
-        string memory supperNode,
-        string memory txHash,
         string memory pubKey,
         string memory sign) public {
        
        require(amount > 0,"stake amount must larger than 0");
 
         bool isVerified = false;
+        bytes32 txHash = bytes32(0);
+
+        //TODO txHash need to set
         string memory signData = string(abi.encodePacked(
-            to,tokenId,data,amount,startTimeSpan,supperNode,txHash
+            to,tokenId,amount,txHash
         ));
        
        isVerified = p256Verify(pubKey, signData, sign);
        require(isVerified,"p256Verify do not pass !");
        
        _idTickInfoMap[tokenId].amount = amount;
-       _idTickInfoMap[tokenId].startTimeSpan = startTimeSpan;
-       _idTickInfoMap[tokenId].supperNode = supperNode;
+       _idTickInfoMap[tokenId].startTimeSpan = block.timestamp;
+       //_idTickInfoMap[tokenId].supperNode = supperNode;
        _idTickInfoMap[tokenId].txHash = txHash;
        _idTickInfoMap[tokenId].owner = to;
 
-       ERC721MinterBurnerPauser(_erc721Address).mint(to,tokenId,data);
+       ERC721MinterBurnerPauser(_erc721Address).mint(to,tokenId,"0x0");
        emit StakeTicketMint(
             to,
             tokenId,
-            data,
             amount,
-            startTimeSpan,
-            supperNode,
+            block.timestamp,
             txHash
        );
     }

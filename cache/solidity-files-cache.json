@@ -966,8 +966,8 @@
       ]
     },
     "/Users/xuxinlai/work/Elastos.ELA.StakeTicket.Solidity/contracts/StakeTicket.sol": {
-      "lastModificationDate": 1668733438613,
-      "contentHash": "fdcc798ca5229c2cb6870dc1a71ed625",
+      "lastModificationDate": 1669010116608,
+      "contentHash": "3ee6b43267480922075394e1a49aa971",
       "sourceName": "contracts/StakeTicket.sol",
       "solcConfig": {
         "version": "0.7.6",
