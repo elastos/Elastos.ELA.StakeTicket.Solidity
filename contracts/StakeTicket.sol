@@ -73,16 +73,9 @@ contract StakeTicket is Initializable,OwnableUpgradeable,Arbiter{
         ) public {
        
         bool isVerified = false;
-        bytes32 txHash = bytes32(0);
+        isVerified = pledgeBillVerify(to, tokenId, txHash);
+        require(isVerified,"pledgeBill Verify do not pass !");
 
-        //TODO txHash need to set
-        //check from the pre compiled contract function
-    //     string memory signData = string(abi.encodePacked(
-    //         to,tokenId,amount,txHash
-    //     ));
-    //    isVerified = p256Verify(pubKey, signData, sign);
-    //    require(isVerified,"p256Verify do not pass !");
-    
        _idTickInfoMap[tokenId].startTimeSpan = block.timestamp;
        //_idTickInfoMap[tokenId].supperNode = supperNode;
        _idTickInfoMap[tokenId].txHash = txHash;
