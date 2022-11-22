@@ -39,7 +39,7 @@ function sleep(ms) {
 
 const getConfigPath = () => {
     //return "scripts/config"
-    return path.resolve(__dirname, '.') + ".././config"
+    return path.resolve(__dirname, '.') + "/.././config"
 }
 
 const isTxSuccess = async (resultObj) =>{
@@ -124,6 +124,8 @@ async function setup(admin){
 module.exports = {
     writeConfig,
     readConfig, 
+    deployERC721,
+    deployStakeTicket,
     sleep,
 
     isTxSuccess,
