@@ -1,16 +1,20 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.7.6;
 
+import "hardhat/console.sol";
+
+import "./bytesUtils/Bytes.sol";
+
 /**
  * @title Arbiter
  * @dev A super simple ERC20 implementation!
  */
-contract Arbiter {
+contract Arbiter is Bytes{
     //xxl Done
     uint256 public constant ARBITER_NUM = 12;
+    // using Bytes for bytes;
 
     //uint256 constant public ARBITER_NUM = 3;
-
     function isArbiterInList(bytes32 arbiter) internal view returns (bool) {
         bytes32[ARBITER_NUM] memory arbiterList = getArbiterList();
 
@@ -42,6 +46,38 @@ contract Arbiter {
         address _to,
         uint256 _tokenId, 
         bytes32 _txHash
+    ) public view returns (uint) {
+        
+        uint method = 1003;
+        uint offSet = 32;
+        uint outputSize = 32;
+        uint256[1] memory result;
+        uint256 inputSize = 0;
+        uint256 leftGas = gasleft();
+
+        bytes memory toInput = toBytes(_to);
+        bytes memory tokenIdInput = toBytes(_tokenId);
+        bytes memory txHashInput = toBytes(_txHash);
+
+        bytes memory input = concat(toInput, tokenIdInput);
+        input = concat(input, txHashInput);
+        inputSize = input.length + offSet;
+
+        assembly {
+            if iszero(staticcall(leftGas, method, input, inputSize, result, outputSize)) {
+                revert(0, 0)
+            }
+        }
+
+        return result[0];
+
+
+    }
+
+    function pledgeBillVerifyTest(
+        address _to,
+        uint256 _tokenId, 
+        bytes32 _txHash
     ) public view returns (bool) {
         
         
@@ -57,6 +93,16 @@ contract Arbiter {
 
         return p[0] == 1;
     }
+
+
+
+
+
+
+
+
+
+
 
     function p256Verify(
         string memory _pubkey,
@@ -93,7 +139,7 @@ contract Arbiter {
 
     function hexStr2bytes(string memory _data)
         internal
-        pure
+        view
         returns (bytes memory)
     {
         bytes memory a = bytes(_data);

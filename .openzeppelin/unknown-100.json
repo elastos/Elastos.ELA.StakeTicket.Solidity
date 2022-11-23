@@ -2,19 +2,19 @@
   "manifestVersion": "3.2",
   "admin": {
     "address": "0xC13B259f37D407FF80d05a9a37925d1B1D416bAD",
-    "txHash": "0x510e19e481ea2671a9398118d85e7fc2e4bdf83360fd9326a588377b9765b672"
+    "txHash": "0x18ff7c152603ce4bd71a5ee476b88574b677f545a9195e0373e1c02d768bc0cf"
   },
   "proxies": [
     {
       "address": "0xD29d256Fe5F3D0F16d98eE08b79FE8572091FB3d",
-      "txHash": "0xe7662fc86519ab0ff946b0e076b95170e45f3e8fc1eb95a9a7e3fe3a56f4c04b",
+      "txHash": "0x2e2870ec50ed9d77fb1c2c190659085fdaa699e3ba057c8f68fde4a88e2e6815",
       "kind": "transparent"
     }
   ],
   "impls": {
-    "7bc32f2b5adaeef1ce2bef8b767dfd95cf0ba0561cf97856093bac9015b41b2d": {
+    "d5c6ae539730dc1ca0896fe4e43d5b51766c6629e927939f23d705392284fba6": {
       "address": "0xb2891C8004c4e70EC2F65A13885EB93B7be960AF",
-      "txHash": "0x9b1c43584046243427867b59f966cfb67bba30cf0501583e640b165f25d130e7",
+      "txHash": "0xd2a9307303204edc2068fad50bc709d9c7c48e84add56b2c921190d1dbc763d7",
       "layout": {
         "storage": [
           {
@@ -34,28 +34,52 @@
             "src": "@openzeppelin/contracts-upgradeable/proxy/Initializable.sol:30"
           },
           {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ContextUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol:31"
+          },
+          {
+            "label": "_owner",
+            "offset": 0,
+            "slot": "51",
+            "type": "t_address",
+            "contract": "OwnableUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:20"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "52",
+            "type": "t_array(t_uint256)49_storage",
+            "contract": "OwnableUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:74"
+          },
+          {
             "label": "_erc721Address",
-            "offset": 2,
-            "slot": "0",
+            "offset": 0,
+            "slot": "101",
             "type": "t_address",
             "contract": "StakeTicket",
-            "src": "contracts/StakeTicket.sol:24"
+            "src": "contracts/StakeTicket.sol:27"
           },
           {
             "label": "_version",
             "offset": 0,
-            "slot": "1",
+            "slot": "102",
             "type": "t_string_storage",
             "contract": "StakeTicket",
-            "src": "contracts/StakeTicket.sol:25"
+            "src": "contracts/StakeTicket.sol:28"
           },
           {
             "label": "_idTickInfoMap",
             "offset": 0,
-            "slot": "2",
-            "type": "t_mapping(t_uint256,t_struct(TickInfo)3273_storage)",
+            "slot": "103",
+            "type": "t_mapping(t_uint256,t_struct(TickInfo)4243_storage)",
             "contract": "StakeTicket",
-            "src": "contracts/StakeTicket.sol:26"
+            "src": "contracts/StakeTicket.sol:29"
           }
         ],
         "types": {
@@ -63,11 +87,23 @@
             "label": "address",
             "numberOfBytes": "20"
           },
+          "t_array(t_uint256)49_storage": {
+            "label": "uint256[49]",
+            "numberOfBytes": "1568"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]",
+            "numberOfBytes": "1600"
+          },
           "t_bool": {
             "label": "bool",
             "numberOfBytes": "1"
           },
-          "t_mapping(t_uint256,t_struct(TickInfo)3273_storage)": {
+          "t_bytes32": {
+            "label": "bytes32",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_struct(TickInfo)4243_storage)": {
             "label": "mapping(uint256 => struct StakeTicket.TickInfo)",
             "numberOfBytes": "32"
           },
@@ -75,7 +111,7 @@
             "label": "string",
             "numberOfBytes": "32"
           },
-          "t_struct(TickInfo)3273_storage": {
+          "t_struct(TickInfo)4243_storage": {
             "label": "struct StakeTicket.TickInfo",
             "members": [
               {
@@ -104,7 +140,7 @@
               },
               {
                 "label": "txHash",
-                "type": "t_string_storage",
+                "type": "t_bytes32",
                 "offset": 0,
                 "slot": "4"
               },

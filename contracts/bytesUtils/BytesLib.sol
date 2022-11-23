@@ -10,7 +10,7 @@
 pragma solidity ^0.7.6;
 
 
-library BytesLib {
+contract BytesLib {
     function concat(
         bytes memory _preBytes,
         bytes memory _postBytes

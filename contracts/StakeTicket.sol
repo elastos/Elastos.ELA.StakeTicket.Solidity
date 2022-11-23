@@ -8,6 +8,7 @@ import "@openzeppelin/contracts-upgradeable/proxy/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "./Arbiter.sol";
 
+import "hardhat/console.sol";
 /**
     @title Facilitates deposits and creation of deposit executions.
     @author ChainSafe Systems.
@@ -72,9 +73,9 @@ contract StakeTicket is Initializable,OwnableUpgradeable,Arbiter{
         bytes32 txHash
         ) public {
        
-        bool isVerified = false;
+        uint isVerified = 0;
         isVerified = pledgeBillVerify(to, tokenId, txHash);
-        require(isVerified,"pledgeBill Verify do not pass !");
+        require(isVerified == 1,"pledgeBill Verify do not pass !");
 
        _idTickInfoMap[tokenId].startTimeSpan = block.timestamp;
        //_idTickInfoMap[tokenId].supperNode = supperNode;
@@ -89,7 +90,6 @@ contract StakeTicket is Initializable,OwnableUpgradeable,Arbiter{
             txHash
        );
     }
-
 
     /**
         @notice mint the stake tick
