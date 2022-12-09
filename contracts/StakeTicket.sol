@@ -61,6 +61,29 @@ contract StakeTicket is Initializable,OwnableUpgradeable,Arbiter{
           
     }
 
+    function claim( bytes32 elaHash,bytes memory signature,bytes memory publickey) external{
+
+        uint isVerified = pledgeBillVerify(elaHash, signature, publickey);
+
+        require(isVerified == 1,"pledgeBill Verify do not pass ");
+
+        bytes32 tokenId = sha3(elaHash);
+
+       _idTickInfoMap[tokenId].startTimeSpan = block.timestamp;
+       //_idTickInfoMap[tokenId].supperNode = supperNode;
+       _idTickInfoMap[tokenId].txHash = elaHash;
+       _idTickInfoMap[tokenId].owner = msg.sender;
+
+       ERC721MinterBurnerPauser(_erc721Address).mint(msg.sender,tokenId,"0x0");
+       emit StakeTicketMint(
+            msg.sender,
+            tokenId,
+            block.timestamp,
+            txHash
+       );
+
+    }
+
     /**
         @notice mint the stake tick
         @param to the address of ERC721 
@@ -90,6 +113,23 @@ contract StakeTicket is Initializable,OwnableUpgradeable,Arbiter{
             txHash
        );
     }
+
+    // /**
+    //     @notice mint the stake tick
+    //     @param to the address of ERC721 
+    //     @param tokenId nft id of the ERC721
+    //     @param txHash tx hash of from the spv
+    //  */
+    // function mintTickTest(
+    //     address to, 
+    //     uint256 tokenId, 
+    //     bytes32 txHash
+    //     ) public {
+
+    //         pledgeBillVerify(to, tokenId, txHash);
+
+    //     }
+
 
     /**
         @notice mint the stake tick

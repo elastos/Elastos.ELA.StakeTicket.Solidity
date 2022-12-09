@@ -94,16 +94,6 @@ contract Arbiter is Bytes{
         return p[0] == 1;
     }
 
-
-
-
-
-
-
-
-
-
-
     function p256Verify(
         string memory _pubkey,
         string memory _data,
