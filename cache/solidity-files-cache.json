@@ -966,8 +966,8 @@
       ]
     },
     "/Users/xuxinlai/work/Elastos.ELA.StakeTicket.Solidity/contracts/StakeTicket.sol": {
-      "lastModificationDate": 1670554497805,
-      "contentHash": "a9866b893ab8b6ecdab11d2ef0116845",
+      "lastModificationDate": 1670560091720,
+      "contentHash": "96a0c7cc0e0bc34407041d0a67d29423",
       "sourceName": "contracts/StakeTicket.sol",
       "solcConfig": {
         "version": "0.7.6",
@@ -2013,8 +2013,8 @@
       ]
     },
     "/Users/xuxinlai/work/Elastos.ELA.StakeTicket.Solidity/contracts/Arbiter.sol": {
-      "lastModificationDate": 1670554406153,
-      "contentHash": "93c5baef8bea80db6a1152727cb87009",
+      "lastModificationDate": 1670560104807,
+      "contentHash": "3fa6426b555835ed6d84bc434f736f5d",
       "sourceName": "contracts/Arbiter.sol",
       "solcConfig": {
         "version": "0.7.6",

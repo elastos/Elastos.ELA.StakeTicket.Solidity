@@ -14,6 +14,25 @@ contract Arbiter is Bytes{
     uint256 public constant ARBITER_NUM = 12;
     // using Bytes for bytes;
 
+    function getTokenIDByTxhash(bytes32 _elaHash) public view returns (uint256) {
+            uint method = 1004;
+            uint offSet = 32;
+            uint outputSize = 32;
+            uint256[1] memory result;
+            uint256 inputSize = 0;
+            uint256 leftGas = gasleft();
+
+            bytes memory input = toBytes(_elaHash);
+            inputSize = input.length + offSet;
+
+            assembly {
+                if iszero(staticcall(leftGas, method, input, inputSize, result, outputSize)) {
+                    revert(0,0)
+                }
+            }
+            return result[0];
+    }
+
     //uint256 constant public ARBITER_NUM = 3;
     function isArbiterInList(bytes32 arbiter) internal view returns (bool) {
         bytes32[ARBITER_NUM] memory arbiterList = getArbiterList();
