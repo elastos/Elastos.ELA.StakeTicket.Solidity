@@ -67,20 +67,18 @@ contract StakeTicket is Initializable,OwnableUpgradeable,Arbiter{
 
         require(isVerified == 1,"pledgeBill Verify do not pass ");
 
-        bytes32 tokenId = sha3(elaHash);
+    //    _idTickInfoMap[tokenId].startTimeSpan = block.timestamp;
+    //    //_idTickInfoMap[tokenId].supperNode = supperNode;
+    //    _idTickInfoMap[tokenId].txHash = elaHash;
+    //    _idTickInfoMap[tokenId].owner = msg.sender;
 
-       _idTickInfoMap[tokenId].startTimeSpan = block.timestamp;
-       //_idTickInfoMap[tokenId].supperNode = supperNode;
-       _idTickInfoMap[tokenId].txHash = elaHash;
-       _idTickInfoMap[tokenId].owner = msg.sender;
-
-       ERC721MinterBurnerPauser(_erc721Address).mint(msg.sender,tokenId,"0x0");
-       emit StakeTicketMint(
-            msg.sender,
-            tokenId,
-            block.timestamp,
-            txHash
-       );
+    //    ERC721MinterBurnerPauser(_erc721Address).mint(msg.sender,tokenId,"0x0");
+    //    emit StakeTicketMint(
+    //         msg.sender,
+    //         tokenId,
+    //         block.timestamp,
+    //         elaHash
+    //    );
 
     }
 
@@ -96,22 +94,22 @@ contract StakeTicket is Initializable,OwnableUpgradeable,Arbiter{
         bytes32 txHash
         ) public {
        
-        uint isVerified = 0;
-        isVerified = pledgeBillVerify(to, tokenId, txHash);
-        require(isVerified == 1,"pledgeBill Verify do not pass !");
+    //     uint isVerified = 0;
+    //     isVerified = pledgeBillVerify(to, tokenId, txHash);
+    //     require(isVerified == 1,"pledgeBill Verify do not pass !");
 
-       _idTickInfoMap[tokenId].startTimeSpan = block.timestamp;
-       //_idTickInfoMap[tokenId].supperNode = supperNode;
-       _idTickInfoMap[tokenId].txHash = txHash;
-       _idTickInfoMap[tokenId].owner = to;
+    //    _idTickInfoMap[tokenId].startTimeSpan = block.timestamp;
+    //    //_idTickInfoMap[tokenId].supperNode = supperNode;
+    //    _idTickInfoMap[tokenId].txHash = txHash;
+    //    _idTickInfoMap[tokenId].owner = to;
 
-       ERC721MinterBurnerPauser(_erc721Address).mint(to,tokenId,"0x0");
-       emit StakeTicketMint(
-            to,
-            tokenId,
-            block.timestamp,
-            txHash
-       );
+    //    ERC721MinterBurnerPauser(_erc721Address).mint(to,tokenId,"0x0");
+    //    emit StakeTicketMint(
+    //         to,
+    //         tokenId,
+    //         block.timestamp,
+    //         txHash
+    //    );
     }
 
     // /**

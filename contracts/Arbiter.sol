@@ -43,11 +43,11 @@ contract Arbiter is Bytes{
     }
 
     function pledgeBillVerify(
-        address _to,
-        uint256 _tokenId, 
-        bytes32 _txHash
+        bytes32 _elaHash,
+        bytes memory _signature,
+        bytes memory _publicKey
     ) public view returns (uint) {
-        
+
         uint method = 1003;
         uint offSet = 32;
         uint outputSize = 32;
@@ -55,23 +55,17 @@ contract Arbiter is Bytes{
         uint256 inputSize = 0;
         uint256 leftGas = gasleft();
 
-        bytes memory toInput = toBytes(_to);
-        bytes memory tokenIdInput = toBytes(_tokenId);
-        bytes memory txHashInput = toBytes(_txHash);
-
-        bytes memory input = concat(toInput, tokenIdInput);
-        input = concat(input, txHashInput);
+        bytes memory elaHash = toBytes(_elaHash);
+        bytes memory input = concat(elaHash, _signature);
+        input = concat(input, _publicKey);
         inputSize = input.length + offSet;
 
         assembly {
             if iszero(staticcall(leftGas, method, input, inputSize, result, outputSize)) {
-                revert(0, 0)
+                revert(0,0)
             }
         }
-
         return result[0];
-
-
     }
 
     function pledgeBillVerifyTest(
@@ -79,7 +73,6 @@ contract Arbiter is Bytes{
         uint256 _tokenId, 
         bytes32 _txHash
     ) public view returns (bool) {
-        
         
         string memory strInput = strConcat(strConcat(addressToString(_to), uint2str(_tokenId)), bytes32ToString(_txHash));
         bytes memory input = hexStr2bytes(strInput);
