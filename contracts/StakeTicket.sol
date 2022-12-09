@@ -32,16 +32,14 @@ contract StakeTicket is Initializable,OwnableUpgradeable,Arbiter{
         address to, 
         uint256 tokenId, 
         uint256 startTimeSpan,
-        bytes32  txHash
+        bytes32 txHash
     );
 
     event StakeTicketBurn(
         address owner,
-        uint256 amount,
+        uint256 tokenId, 
         uint256 startTimeSpan,
-        string supperNode,
-        bytes32 txHash,
-        string withDrawTo
+        bytes32 txHash
     );
 
     /**
@@ -61,91 +59,23 @@ contract StakeTicket is Initializable,OwnableUpgradeable,Arbiter{
           
     }
 
-    // function claim( bytes32 elaHash,bytes memory signature,bytes memory publickey) external{
-
-    //     uint isVerified = pledgeBillVerify(elaHash, signature, publickey);
-
-    //     require(isVerified == 1,"pledgeBill Verify do not pass ");
-
-    // //    _idTickInfoMap[tokenId].startTimeSpan = block.timestamp;
-    // //    //_idTickInfoMap[tokenId].supperNode = supperNode;
-    // //    _idTickInfoMap[tokenId].txHash = elaHash;
-    // //    _idTickInfoMap[tokenId].owner = msg.sender;
-
-    // //    ERC721MinterBurnerPauser(_erc721Address).mint(msg.sender,tokenId,"0x0");
-    // //    emit StakeTicketMint(
-    // //         msg.sender,
-    // //         tokenId,
-    // //         block.timestamp,
-    // //         elaHash
-    // //    );
-
-    // }
-
     function claim(bytes32 elaHash, bytes memory signature, bytes memory publicKey) external {
-            uint isVerified = pledgeBillVerify(elaHash, signature, publicKey);
-            require(isVerified == 1,"pledgeBill Verify do not pass !");
-            uint256 tokenId = getTokenIDByTxhash(elaHash);
-            _idTickInfoMap[tokenId].startTimeSpan = block.timestamp;
-            _idTickInfoMap[tokenId].txHash = elaHash;
-            _idTickInfoMap[tokenId].owner = msg.sender;
-            //
-            ERC721MinterBurnerPauser(_erc721Address).mint( msg.sender,tokenId,"0x0");
-            emit StakeTicketMint(
-                msg.sender,
-                tokenId,
-                block.timestamp,
-                elaHash
-            );
-        }
-
-
-    /**
-        @notice mint the stake tick
-        @param to the address of ERC721 
-        @param tokenId nft id of the ERC721
-        @param txHash tx hash of from the spv
-     */
-    function mintTick(
-        address to, 
-        uint256 tokenId, 
-        bytes32 txHash
-        ) public {
-       
-    //     uint isVerified = 0;
-    //     isVerified = pledgeBillVerify(to, tokenId, txHash);
-    //     require(isVerified == 1,"pledgeBill Verify do not pass !");
-
-    //    _idTickInfoMap[tokenId].startTimeSpan = block.timestamp;
-    //    //_idTickInfoMap[tokenId].supperNode = supperNode;
-    //    _idTickInfoMap[tokenId].txHash = txHash;
-    //    _idTickInfoMap[tokenId].owner = to;
-
-    //    ERC721MinterBurnerPauser(_erc721Address).mint(to,tokenId,"0x0");
-    //    emit StakeTicketMint(
-    //         to,
-    //         tokenId,
-    //         block.timestamp,
-    //         txHash
-    //    );
+        
+        uint isVerified = pledgeBillVerify(elaHash, signature, publicKey);
+        require(isVerified == 1,"pledgeBill Verify do not pass !");
+        uint256 tokenId = getTokenIDByTxhash(elaHash);
+        _idTickInfoMap[tokenId].startTimeSpan = block.timestamp;
+        _idTickInfoMap[tokenId].txHash = elaHash;
+        _idTickInfoMap[tokenId].owner = msg.sender;
+        //
+        ERC721MinterBurnerPauser(_erc721Address).mint( msg.sender,tokenId,"0x0");
+        emit StakeTicketMint(
+            msg.sender,
+            tokenId,
+            block.timestamp,
+            elaHash
+        );
     }
-
-    // /**
-    //     @notice mint the stake tick
-    //     @param to the address of ERC721 
-    //     @param tokenId nft id of the ERC721
-    //     @param txHash tx hash of from the spv
-    //  */
-    // function mintTickTest(
-    //     address to, 
-    //     uint256 tokenId, 
-    //     bytes32 txHash
-    //     ) public {
-
-    //         pledgeBillVerify(to, tokenId, txHash);
-
-    //     }
-
 
     /**
         @notice mint the stake tick
@@ -170,11 +100,9 @@ contract StakeTicket is Initializable,OwnableUpgradeable,Arbiter{
        
        emit StakeTicketBurn(
             _idTickInfoMap[tokenId].owner,
-            _idTickInfoMap[tokenId].amount,
+            tokenId,
             _idTickInfoMap[tokenId].startTimeSpan,
-            _idTickInfoMap[tokenId].supperNode,
-            _idTickInfoMap[tokenId].txHash,
-            _idTickInfoMap[tokenId].withDrawTo
+            _idTickInfoMap[tokenId].txHash
        );
 
        delete _idTickInfoMap[tokenId];     
