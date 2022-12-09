@@ -1,0 +1,1 @@
+npx hardhat run scripts/1deployStakeTicket.js --network local

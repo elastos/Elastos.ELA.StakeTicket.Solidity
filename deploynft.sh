@@ -1,0 +1,1 @@
+npx hardhat run scripts/0deployErc721.js  --network local

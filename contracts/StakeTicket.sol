@@ -61,25 +61,21 @@ contract StakeTicket is Initializable,OwnableUpgradeable,Arbiter{
           
     }
 
-    function claim( bytes32 elaHash,bytes memory signature,bytes memory publickey) external{
-
-        uint isVerified = pledgeBillVerify(elaHash, signature, publickey);
-
-        require(isVerified == 1,"pledgeBill Verify do not pass ");
-
-    //    _idTickInfoMap[tokenId].startTimeSpan = block.timestamp;
-    //    //_idTickInfoMap[tokenId].supperNode = supperNode;
-    //    _idTickInfoMap[tokenId].txHash = elaHash;
-    //    _idTickInfoMap[tokenId].owner = msg.sender;
-
-    //    ERC721MinterBurnerPauser(_erc721Address).mint(msg.sender,tokenId,"0x0");
-    //    emit StakeTicketMint(
-    //         msg.sender,
-    //         tokenId,
-    //         block.timestamp,
-    //         elaHash
-    //    );
-
+    function claim(bytes32 elaHash, bytes memory signature, bytes memory publicKey) external {
+        uint isVerified = pledgeBillVerify(elaHash, signature, publicKey);
+        require(isVerified == 1,"pledgeBill Verify do not pass !");
+        uint256 tokenId = getTokenIDByTxhash(elaHash);
+        _idTickInfoMap[tokenId].startTimeSpan = block.timestamp;
+        _idTickInfoMap[tokenId].txHash = elaHash;
+        _idTickInfoMap[tokenId].owner = msg.sender;
+        //
+        ERC721MinterBurnerPauser(_erc721Address).mint( msg.sender,tokenId,"0x0");
+        emit StakeTicketMint(
+            msg.sender,
+            tokenId,
+            block.timestamp,
+            elaHash
+        );
     }
 
     /**
