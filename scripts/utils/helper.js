@@ -97,33 +97,6 @@ async function deployStakeTicket(erc721Address,version,account){
 
 }
 
-
-async function attachStakeTicket(erc721Address,account){
-
-
-    // constructor(string memory name, string memory symbol, string memory baseURI) ERC721(name, symbol) {
-    const stakeTicketFactory = await ethers.getContractFactory("StakeTicket",account);
-    // const stakeTicketContract = await upgrades.deployProxy(
-    //     stakeTicketFactory,
-    //     [
-    //         erc721Address,version
-    //     ],
-    //     {
-    //         initializer:  "__StakeTicket_init",
-    //         unsafeAllowLinkedLibraries: true,
-    //     },
-    //     { gasPrice: gasPrice, gasLimit: gasLimit}
-    // );
-
-    const stakeTicketContract = await stakeTicketFactory.attach(
-        erc721Address,
-        { gasPrice: gasPrice, gasLimit: gasLimit}
-    )
-
-    return stakeTicketContract;
-
-}
-
 let NAME721 = "ELAStake721";
 let SYMBOL721 = "ELAStake721";
 let BASEURI = "https://elaTicket";
@@ -148,13 +121,26 @@ async function setup(admin){
     }
 }
 
+async function attachNFTContract(account, address){
+    const facotryNFT = await ethers.getContractFactory('ERC721MinterBurnerPauser',account)
+    let nftContract  = await facotryNFT.connect(account).attach(address);
+    return nftContract;
+}
+
+async function attachStakeTicket(account, address){
+    const facotryStakeTicket = await ethers.getContractFactory('StakeTicket',account)
+    let stakeTicket  = await facotryStakeTicket.connect(account).attach(address);
+    return stakeTicket;
+}
+
 module.exports = {
     writeConfig,
     readConfig, 
     deployERC721,
     deployStakeTicket,
-    attachStakeTicket,
     sleep,
+    attachStakeTicket,
+    attachNFTContract,
 
     isTxSuccess,
     hex2a,
