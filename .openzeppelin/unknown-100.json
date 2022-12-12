@@ -2,19 +2,19 @@
   "manifestVersion": "3.2",
   "admin": {
     "address": "0xC13B259f37D407FF80d05a9a37925d1B1D416bAD",
-    "txHash": "0x18ff7c152603ce4bd71a5ee476b88574b677f545a9195e0373e1c02d768bc0cf"
+    "txHash": "0xa3b9a879fb938701f38fed7ad5110c9b3ad18c7d0a62238014266c47babdd353"
   },
   "proxies": [
     {
       "address": "0xD29d256Fe5F3D0F16d98eE08b79FE8572091FB3d",
-      "txHash": "0x2e2870ec50ed9d77fb1c2c190659085fdaa699e3ba057c8f68fde4a88e2e6815",
+      "txHash": "0x304d1141658374704ae146a51ca87c5c79faae9dca4c6011b789d22c46c1e800",
       "kind": "transparent"
     }
   ],
   "impls": {
-    "d5c6ae539730dc1ca0896fe4e43d5b51766c6629e927939f23d705392284fba6": {
+    "87e2c041406daa946bc43abee120d82f98e4d5eb550608cdf1e14006404fd0cf": {
       "address": "0xb2891C8004c4e70EC2F65A13885EB93B7be960AF",
-      "txHash": "0xd2a9307303204edc2068fad50bc709d9c7c48e84add56b2c921190d1dbc763d7",
+      "txHash": "0xdedf0eae4fac24acdda3b5cd894ab1fe973a8cbdc97b5c73168dd93a6daafe1e",
       "layout": {
         "storage": [
           {
@@ -77,7 +77,7 @@
             "label": "_idTickInfoMap",
             "offset": 0,
             "slot": "103",
-            "type": "t_mapping(t_uint256,t_struct(TickInfo)4243_storage)",
+            "type": "t_mapping(t_uint256,t_struct(TickInfo)4272_storage)",
             "contract": "StakeTicket",
             "src": "contracts/StakeTicket.sol:29"
           }
@@ -103,7 +103,7 @@
             "label": "bytes32",
             "numberOfBytes": "32"
           },
-          "t_mapping(t_uint256,t_struct(TickInfo)4243_storage)": {
+          "t_mapping(t_uint256,t_struct(TickInfo)4272_storage)": {
             "label": "mapping(uint256 => struct StakeTicket.TickInfo)",
             "numberOfBytes": "32"
           },
@@ -111,7 +111,7 @@
             "label": "string",
             "numberOfBytes": "32"
           },
-          "t_struct(TickInfo)4243_storage": {
+          "t_struct(TickInfo)4272_storage": {
             "label": "struct StakeTicket.TickInfo",
             "members": [
               {

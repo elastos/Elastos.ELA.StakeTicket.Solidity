@@ -13,8 +13,8 @@ import "hardhat/console.sol";
     @title Facilitates deposits and creation of deposit executions.
     @author ChainSafe Systems.
  */
-contract StakeTicket is Initializable,OwnableUpgradeable,Arbiter{
-
+//contract StakeTicket is Initializable,Arbiter,ERC721MinterBurnerPauser,OwnableUpgradeable{
+contract StakeTicket is Initializable,Arbiter,OwnableUpgradeable{
     struct TickInfo{
         address owner;
         uint256 amount;
@@ -36,10 +36,8 @@ contract StakeTicket is Initializable,OwnableUpgradeable,Arbiter{
     );
 
     event StakeTicketBurn(
-        address owner,
         uint256 tokenId, 
-        uint256 startTimeSpan,
-        bytes32 txHash
+        string elaAddress
     );
 
     /**
@@ -53,10 +51,7 @@ contract StakeTicket is Initializable,OwnableUpgradeable,Arbiter{
     ) public initializer {
 
         _erc721Address = erc721Address;
-        _version = version;
-
-        __Ownable_init();
-          
+        _version = version;          
     }
 
     function claim(bytes32 elaHash, bytes memory signature, bytes memory publicKey) external {
@@ -78,6 +73,16 @@ contract StakeTicket is Initializable,OwnableUpgradeable,Arbiter{
     }
 
     /**
+        @notice just for test
+        @param tokenId nft id of the ERC721
+     */
+    function mintTick(uint256 tokenId) external {
+        
+        ERC721MinterBurnerPauser(_erc721Address).mint( msg.sender,tokenId,"0x0");
+
+    }
+
+    /**
         @notice mint the stake tick
         @param tokenId nft id of the ERC721
      */
@@ -92,17 +97,14 @@ contract StakeTicket is Initializable,OwnableUpgradeable,Arbiter{
         @notice burn the stake tick
         @param tokenId nft id of the ERC721
      */
-    function burnTick(uint256 tokenId) public {
-       
-       require(tokenId > 0,"stake amount must larger than 0");
+    function burnTick(uint256 tokenId,string memory saddress) public {
 
+       require(tokenId > 0,"stake amount must larger than 0");
        ERC721MinterBurnerPauser(_erc721Address).burn(tokenId);
-       
+
        emit StakeTicketBurn(
-            _idTickInfoMap[tokenId].owner,
             tokenId,
-            _idTickInfoMap[tokenId].startTimeSpan,
-            _idTickInfoMap[tokenId].txHash
+            saddress
        );
 
        delete _idTickInfoMap[tokenId];     
