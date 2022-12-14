@@ -34,18 +34,18 @@ const main = async () => {
 
     console.log("xxl before claim start : ");
     tx = await stakeSticket.claim(elaHash, Buffer.from(signature, "hex"), Buffer.from(publicKey, "hex"));
-    //tx = await stakeSticket.claim(elaHash, signature, publicKey);
     console.log("xxl before claim end : ");
     console.log("claim tx", tx.hash)
     await sleep(10000)
 
     let balance = await nftContract.balanceOf(deployer.address)
     console.log("balance of nft", balance)
-    let tokenID = await nftContract.tokenByIndex(0)
-    console.log("tokenID of nft", tokenID)
-    let ownerOf = await nftContract.ownerOf(tokenID)
-    console.log("ownerOf of nft", ownerOf)
-
+    if (balance > 0) {
+        let tokenID = await nftContract.tokenByIndex(0)
+        console.log("tokenID of nft", "hex format", BigInt(tokenID).toString(16), "uint256 format",BigInt(tokenID).toString())
+        let ownerOf = await nftContract.ownerOf(tokenID)
+        console.log("ownerOf of nft", ownerOf)
+    }
 
 }
 
