@@ -41,10 +41,14 @@ const main = async () => {
     let balance = await nftContract.balanceOf(deployer.address)
     console.log("balance of nft", balance)
     if (balance > 0) {
-        let tokenID = await nftContract.tokenByIndex(0)
-        console.log("tokenID of nft", "hex format", BigInt(tokenID).toString(16), "uint256 format",BigInt(tokenID).toString())
-        let ownerOf = await nftContract.ownerOf(tokenID)
-        console.log("ownerOf of nft", ownerOf)
+        for(var i = 0 ;i < balance ;i ++ ){
+            let tokenID = await await nftContract.tokenOfOwnerByIndex(deployer.address,i);
+            console.log("tokenID of nft", "hex format",i, BigInt(tokenID).toString(16), "uint256 format",BigInt(tokenID).toString())
+            let ownerOf = await nftContract.ownerOf(tokenID)
+            console.log("ownerOf of nft", ownerOf)
+
+        }
+
     }
 
 }
