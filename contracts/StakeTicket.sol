@@ -54,9 +54,8 @@ contract StakeTicket is Initializable,Arbiter,OwnableUpgradeable{
         _version = version;          
     }
 
-    function claim(bytes32 elaHash, bytes memory signature, bytes memory publicKey) external {
-        
-        uint isVerified = pledgeBillVerify(elaHash, signature, publicKey);
+    function claim(bytes32 elaHash, bytes[] memory signatures, bytes[] memory publicKeys, uint256 multi_m) external {
+        uint isVerified = pledgeBillVerify(elaHash, signatures, publicKeys, multi_m);
         require(isVerified == 1,"pledgeBill Verify do not pass !");
         uint256 tokenId = getTokenIDByTxhash(elaHash);
         _idTickInfoMap[tokenId].startTimeSpan = block.timestamp;
