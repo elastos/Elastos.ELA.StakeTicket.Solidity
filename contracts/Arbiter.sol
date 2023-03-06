@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: MIT
+pragma abicoder v2;
 pragma solidity ^0.7.6;
 
 import "hardhat/console.sol";
@@ -24,7 +25,6 @@ contract Arbiter is Bytes{
 
             bytes memory input = toBytes(_elaHash);
             inputSize = input.length + offSet;
-
             assembly {
                 if iszero(staticcall(leftGas, method, input, inputSize, result, outputSize)) {
                     revert(0,0)
@@ -63,24 +63,29 @@ contract Arbiter is Bytes{
 
     function pledgeBillVerify(
         bytes32 _elaHash,
-        bytes memory _signature,
-        bytes memory _publicKey
+        bytes[] memory _signature,
+        bytes[] memory _publicKey,
+        uint256 multi_m
     ) public view returns (uint) {
-
-        uint method = 1003;
-        uint offSet = 32;
-        uint outputSize = 32;
         uint256[1] memory result;
         uint256 inputSize = 0;
         uint256 leftGas = gasleft();
 
+        bytes memory multi_n = toBytes(_publicKey.length);
         bytes memory elaHash = toBytes(_elaHash);
-        bytes memory input = concat(elaHash, _signature);
-        input = concat(input, _publicKey);
-        inputSize = input.length + offSet;
+        bytes memory input = concat(elaHash, multi_n);
+        input = concat(input, toBytes(multi_m));
+        uint i;
+        for(i = 0; i < _publicKey.length; i++) {
+            input = concat(input, _publicKey[i]);
+        }
+        for(i = 0; i < _signature.length; i++) {
+            input = concat(input, _signature[i]);
+        }
 
+        inputSize = input.length + 32;
         assembly {
-            if iszero(staticcall(leftGas, method, input, inputSize, result, outputSize)) {
+            if iszero(staticcall(leftGas, 1003, input, inputSize, result, 32)) {
                 revert(0,0)
             }
         }
@@ -141,7 +146,7 @@ contract Arbiter is Bytes{
 
     function hexStr2bytes(string memory _data)
         internal
-        view
+        pure
         returns (bytes memory)
     {
         bytes memory a = bytes(_data);
