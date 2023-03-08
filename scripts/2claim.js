@@ -42,6 +42,8 @@ const main = async () => {
     console.log("claim tx", tx.hash)
     await sleep(10000)
 
+    let erc721Address = await readConfig("0","ERC721_ADDRESS");
+    let nftContract= await attachNFTContract(deployer, erc721Address)
     let balance = await nftContract.balanceOf(deployer.address)
     console.log("balance of nft", balance)
     if (balance > 0) {
