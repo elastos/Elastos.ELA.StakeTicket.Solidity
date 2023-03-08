@@ -20,8 +20,9 @@ contract StakeTicket is Initializable,Arbiter,OwnableUpgradeable{
         uint256 amount;
         uint256 startTimeSpan;
         string supperNode;
-        bytes32 txHash;
+        bytes32[] txList;
         string withDrawTo;
+        bool isBurned;
     }
 
     address private _erc721Address;
@@ -54,13 +55,26 @@ contract StakeTicket is Initializable,Arbiter,OwnableUpgradeable{
         _version = version;          
     }
 
+    function isNotClaimed(bytes32 elaHash, uint256 tokenID) private view returns(bool) {
+        bytes32[] memory txList = _idTickInfoMap[tokenID].txList;
+        for (uint i = 0; i < txList.length; i++) {
+            if (txList[i] == elaHash) {
+              return false;
+            }
+        }
+        return true;
+     }
+
     function claim(bytes32 elaHash, bytes[] memory signatures, bytes[] memory publicKeys, uint256 multi_m) external {
         uint isVerified = pledgeBillVerify(elaHash, signatures, publicKeys, multi_m);
         require(isVerified == 1,"pledgeBill Verify do not pass !");
         uint256 tokenId = getTokenIDByTxhash(elaHash);
+        require(isNotClaimed(elaHash, tokenId), "isClaimed");
+
         _idTickInfoMap[tokenId].startTimeSpan = block.timestamp;
-        _idTickInfoMap[tokenId].txHash = elaHash;
+        _idTickInfoMap[tokenId].txList.push(elaHash);
         _idTickInfoMap[tokenId].owner = msg.sender;
+        _idTickInfoMap[tokenId].isBurned = false;
         //
         ERC721MinterBurnerPauser(_erc721Address).mint( msg.sender,tokenId,"0x0");
         emit StakeTicketMint(
@@ -105,8 +119,7 @@ contract StakeTicket is Initializable,Arbiter,OwnableUpgradeable{
             tokenId,
             saddress
        );
-
-       delete _idTickInfoMap[tokenId];     
+        _idTickInfoMap[tokenId].isBurned = true;
     }
 
     /**
