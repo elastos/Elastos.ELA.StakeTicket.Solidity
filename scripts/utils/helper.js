@@ -89,7 +89,7 @@ async function deployERC721(name,symbol,baseURI,account){
 
 }
 
-async function deployStakeTicket(erc721Address,version,account){
+async function deployStakeTicket(erc721Address,account){
 
 
     // constructor(string memory name, string memory symbol, string memory baseURI) ERC721(name, symbol) {
@@ -97,7 +97,7 @@ async function deployStakeTicket(erc721Address,version,account){
     const stakeTicketContract = await upgrades.deployProxy(
         stakeTicketFactory,
         [
-            erc721Address,version
+            erc721Address
         ],
         {
             initializer:  "__StakeTicket_init",

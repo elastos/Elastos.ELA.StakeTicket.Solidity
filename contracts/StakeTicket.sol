@@ -26,7 +26,7 @@ contract StakeTicket is Initializable,Arbiter,OwnableUpgradeable{
     }
 
     address private _erc721Address;
-    string private _version;
+    string constant public version = "v0.0.1";
     mapping(uint256 => TickInfo) internal _idTickInfoMap;
 
     event StakeTicketMint(
@@ -44,15 +44,11 @@ contract StakeTicket is Initializable,Arbiter,OwnableUpgradeable{
     /**
      * @dev __StakeTicket_init
        @param erc721Address erc721 token address
-       @param version stake ticket version
      */
     function __StakeTicket_init(
-      address erc721Address,
-      string memory version
+      address erc721Address
     ) public initializer {
-
         _erc721Address = erc721Address;
-        _version = version;          
     }
 
     function isNotClaimed(bytes32 elaHash, uint256 tokenID) private view returns(bool) {
