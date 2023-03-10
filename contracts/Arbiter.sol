@@ -75,6 +75,7 @@ contract Arbiter is Bytes{
         bytes memory elaHash = toBytes(_elaHash);
         bytes memory input = concat(elaHash, multi_n);
         input = concat(input, toBytes(multi_m));
+        input = concat(input, toBytes(_signature.length));
         uint i;
         for(i = 0; i < _publicKey.length; i++) {
             input = concat(input, _publicKey[i]);
