@@ -14,7 +14,7 @@ const main = async () => {
 
     let erc721Address = await readConfig("0","ERC721_ADDRESS");
 
-    let stakeTicketContract = await deployStakeTicket(erc721Address,"v0.0.1",deployer);
+    let stakeTicketContract = await deployStakeTicket(erc721Address,deployer);
     await writeConfig("0","1","STAKE_TICKET_ADDRESS",stakeTicketContract.address);
     console.log("stake ticket address : ",stakeTicketContract.address);
 
