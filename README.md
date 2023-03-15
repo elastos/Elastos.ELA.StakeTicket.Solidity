@@ -25,7 +25,7 @@ yarn version v1.22.17
 
 ## Quick Start
 
-Take the tested environment as an example, including the deployment of contracts, the implementation of Burn and Claim functions
+Take the test environment as an example, including the deployment of contracts, the implementation of Burn and Claim functions
 
 1. Install the package
  ```shell
@@ -60,4 +60,4 @@ MIT: https://rem.mit-license.org
 ## Contribution
 Thank you for considering to help out with the source code! We welcome contributions from anyone on the internet, and are grateful for even the smallest of fixes!
 
-If you'd like to contribute to zkFil , please fork, fix, commit and send a pull request for the maintainers to review and merge into the main code base. 
+If you'd like to contribute to Elastos.ELA.StakeTicket.Solidity , please fork, fix, commit and send a pull request for the maintainers to review and merge into the main code base. 
