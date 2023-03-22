@@ -82,8 +82,7 @@ async function deployERC721(name,symbol,baseURI,account){
     const erc721Factory = await ethers.getContractFactory("ERC721MinterBurnerPauser",account);
 
     const erc721Contract = await erc721Factory.deploy(
-        name,symbol,baseURI,
-        { gasPrice: gasPrice, gasLimit: gasLimit}
+        name,symbol,baseURI
     )
     return erc721Contract;
 
@@ -102,8 +101,7 @@ async function deployStakeTicket(erc721Address,account){
         {
             initializer:  "__StakeTicket_init",
             unsafeAllowLinkedLibraries: true,
-        },
-        { gasPrice: gasPrice, gasLimit: gasLimit}
+        }
     );
 
     return stakeTicketContract;
