@@ -12,6 +12,14 @@ const { private_key, internal_url } = process.env;
 module.exports = {
   
   networks: {
+    mainnet: {
+      url: `https://api.elastos.io/esc`,
+      accounts: [
+        `${private_key}`
+      ],
+      gasLimit: 0x7a1200,
+      gas: 0x02540be400
+    },
 
     reg: {
       url: `http://${internal_url}:20636`,
@@ -23,9 +31,9 @@ module.exports = {
     },
 
     test: {
-      url: `https://api-testnet.elastos.io/eth`,
+      url: `https://api-testnet.elastos.io/esc`,
       accounts: [
-        "0xc03b0a988e2e18794f2f0e881d7ffcd340d583f63c1be078426ae09ddbdec9f5"
+        `${private_key}`
       ],
       gasLimit: 0x7a1200,
       gas: 0x02540be400
@@ -38,15 +46,6 @@ module.exports = {
       ]
     },
 
-    my: {
-      url: `http://127.0.0.1:11001`,
-      accounts: [
-        "0xc03b0a988e2e18794f2f0e881d7ffcd340d583f63c1be078426ae09ddbdec9f5",
-        "0x54e6e01600b66af71b9827429ff32599383d7694684bc09e26c3b13d95980650",
-        "0xcb93f47f4ae6e2ee722517f3a2d3e7f55a5074f430c9860bcfe1d6d172492ed0",
-      ]
-    },
-
     hardhat:{
       chainId:100,
       accounts: [
@@ -56,8 +55,6 @@ module.exports = {
       ],
       blockGasLimit: 8000000
     }
-
-
 
   },
   solidity: '0.7.6',
