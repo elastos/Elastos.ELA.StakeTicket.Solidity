@@ -129,7 +129,6 @@ contract StakeTicket is Initializable,Arbiter,OwnableUpgradeable{
 
        ERC721MinterBurnerPauser(_erc721Address).safeTransferFrom(msg.sender,to,tokenId);
        _idTickInfoMap[tokenId].owner = to;
-
     }
 
     /**
@@ -143,5 +142,9 @@ contract StakeTicket is Initializable,Arbiter,OwnableUpgradeable{
 
        _idTickInfoMap[tokenId].withDrawTo = withDrawTo;
 
+    }
+
+    function getNFTContract() public view returns (address){
+        return _erc721Address;
     }
 }

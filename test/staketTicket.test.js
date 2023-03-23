@@ -33,6 +33,9 @@ describe(`Stake Ticket Contact `, () => {
     erc721Contract = setupObj.erc721Contract;
     stakeTicketContract = setupObj.stakeTicketContract;
 
+    let nftAddress = await stakeTicketContract.getNFTContract();
+    console.log("nftAddress", nftAddress, "erc721Contract", erc721Contract.address);
+
   })
 
   it('burn ticket nft', async function() {
