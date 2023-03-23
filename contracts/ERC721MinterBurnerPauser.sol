@@ -14,7 +14,6 @@ contract ERC721MinterBurnerPauser is Context, AccessControl, ERC721Burnable, ERC
 
     string private _baseURI;
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
-    bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
 
     /**
      * @dev Grants `DEFAULT_ADMIN_ROLE` and `MINTER_ROLE`to the account that
@@ -24,20 +23,25 @@ contract ERC721MinterBurnerPauser is Context, AccessControl, ERC721Burnable, ERC
      * See {ERC721-tokenURI}.
      */
     constructor(string memory name, string memory symbol, string memory baseURI) ERC721(name, symbol) {
-
         _baseURI = baseURI;
-
         _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());
-        _setupRole(MINTER_ROLE, _msgSender());
-        _setupRole(PAUSER_ROLE, _msgSender());
-
     }
 
-    function setMinterRole(address mintAddress) public{
-
+    function setMinterRole(address mintAddress) public {
         require(hasRole(DEFAULT_ADMIN_ROLE, _msgSender()), "ERC721MinterBurnerPauser: must have admin role to mint");
+        uint num = getRoleMemberCount(MINTER_ROLE);
+        if (num > 0) {
+            address oldAddress = getRoleMember(MINTER_ROLE, num - 1);
+            revokeRole(MINTER_ROLE, oldAddress);
+        }
         _setupRole(MINTER_ROLE, mintAddress);
+    }
 
+    function changeAdminRole(address newAdmin) public {
+        require(newAdmin != address(0), "InvalidNewAdmin");
+        require(hasRole(DEFAULT_ADMIN_ROLE, _msgSender()), "ERC721MinterBurnerPauser: must have admin role to mint");
+        revokeRole(DEFAULT_ADMIN_ROLE, _msgSender());
+        _setupRole(DEFAULT_ADMIN_ROLE, newAdmin);
     }
 
     /**
@@ -70,7 +74,7 @@ contract ERC721MinterBurnerPauser is Context, AccessControl, ERC721Burnable, ERC
      * - the caller must have the `PAUSER_ROLE`.
      */
     function pause() public {
-        require(hasRole(PAUSER_ROLE, _msgSender()), "ERC721MinterBurnerPauser: must have pauser role to pause");
+        require(hasRole(DEFAULT_ADMIN_ROLE, _msgSender()), "ERC721MinterBurnerPauser: must have pauser role to pause");
         _pause();
     }
 
@@ -84,7 +88,7 @@ contract ERC721MinterBurnerPauser is Context, AccessControl, ERC721Burnable, ERC
      * - the caller must have the `PAUSER_ROLE`.
      */
     function unpause() public {
-        require(hasRole(PAUSER_ROLE, _msgSender()), "ERC721MinterBurnerPauser: must have pauser role to unpause");
+        require(hasRole(DEFAULT_ADMIN_ROLE, _msgSender()), "ERC721MinterBurnerPauser: must have pauser role to unpause");
         _unpause();
     }
 
