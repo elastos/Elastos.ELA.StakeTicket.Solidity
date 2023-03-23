@@ -17,8 +17,6 @@ module.exports = {
       accounts: [
         `${private_key}`
       ],
-      gasLimit: 0x7a1200,
-      gas: 0x02540be400
     },
 
     reg: {
@@ -26,8 +24,6 @@ module.exports = {
       accounts: [
         `${private_key}`
       ],
-      gasLimit: 0x7a1200,
-      gas: 0x02540be400
     },
 
     test: {
@@ -35,8 +31,6 @@ module.exports = {
       accounts: [
         `${private_key}`
       ],
-      gasLimit: 0x7a1200,
-      gas: 0x02540be400
     },
 
     local: {
