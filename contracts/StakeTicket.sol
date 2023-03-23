@@ -48,6 +48,7 @@ contract StakeTicket is Initializable,Arbiter,OwnableUpgradeable{
     function __StakeTicket_init(
       address erc721Address
     ) public initializer {
+        __Ownable_init();
         _erc721Address = erc721Address;
     }
 
