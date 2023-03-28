@@ -39,7 +39,7 @@ contract ERC721MinterBurnerPauser is Context, AccessControl, ERC721Burnable, ERC
 
     function changeAdminRole(address newAdmin) public {
         require(newAdmin != address(0), "InvalidNewAdmin");
-        require(hasRole(DEFAULT_ADMIN_ROLE, _msgSender()), "ERC721MinterBurnerPauser: must have admin role to mint");
+        require(hasRole(DEFAULT_ADMIN_ROLE, _msgSender()), "ERC721MinterBurnerPauser: must have admin role to changeAdminRole");
         revokeRole(DEFAULT_ADMIN_ROLE, _msgSender());
         _setupRole(DEFAULT_ADMIN_ROLE, newAdmin);
     }

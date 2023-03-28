@@ -49,7 +49,6 @@ describe(`Stake Ticket Contact `, () => {
         console.log("setMinterRole tx", tx.hash);
 
 
-
         count = await erc721Contract.getRoleMemberCount(Role);
         owner = await erc721Contract.getRoleMember(Role, 0);
         console.log("behind setMinterRole", "count", count, "owner", owner);
@@ -68,32 +67,28 @@ describe(`Stake Ticket Contact `, () => {
        let  Role = web3.utils.hexToBytes("0x0000000000000000000000000000000000000000000000000000000000000000")
         let count = await erc721Contract.getRoleMemberCount(Role);
         let owner = await erc721Contract.getRoleMember(Role, 0);
-        console.log("before changeOwner", "count", count, "owner", owner, "newOwner", user1.address);
+        console.log("before grantRole", "count", count, "owner", owner, "newOwner", user1.address);
 
-        let tx = await erc721Contract.changeAdminRole(user1.address);
+        let grantTx = await erc721Contract.grantRole(Role, user1.address);
+          count = await erc721Contract.getRoleMemberCount(Role);
+        console.log("grantrole tx", grantTx.hash, "getRoleMemberCount", count);
+
+        let revokeTx = await erc721Contract.revokeRole(Role, owner);
+        console.log("revokeTx tx", revokeTx.hash);
+
+
+        count = await erc721Contract.getRoleMemberCount(Role);
+        owner = await erc721Contract.getRoleMember(Role, 0);
+        console.log("behind revokeRole", "count", count, "owner", owner);
+
+
+        erc721Contract =  await erc721Contract.connect(user1);
+        let tx =  await erc721Contract.changeAdminRole(user2.address);
         console.log("changeAdminRole tx", tx.hash);
+
         count = await erc721Contract.getRoleMemberCount(Role);
         owner = await erc721Contract.getRoleMember(Role, 0);
         console.log("behind changeOwner", "count", count, "owner", owner);
-
-    })
-
-    /
-    it('change miner role test to mint', async function() {
-
-        let tokenID = 1234;
-        let  Role = web3.utils.keccak256("MINTER_ROLE");
-        owner = await erc721Contract.getRoleMember(Role, 0);
-        let count = await erc721Contract.getRoleMemberCount(Role);
-
-        console.log("behind setMinterRole2", "count", count, "owner", owner,"user2",user2.address);
-
-        await erc721Contract.connect(user2).mint(user1.address,tokenID,"0x12");
-        let ownerOf = await erc721Contract.connect(user2).ownerOf(tokenID)
-
-        //mint
-        console.log("mint result owner of ", ownerOf,"user1",user1.address);
-
     })
 
 
