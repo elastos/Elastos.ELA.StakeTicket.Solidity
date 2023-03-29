@@ -63,6 +63,7 @@ contract Arbiter is Bytes{
 
     function pledgeBillVerify(
         bytes32 _elaHash,
+        address _to,
         bytes[] memory _signature,
         bytes[] memory _publicKey,
         uint256 multi_m
@@ -73,7 +74,8 @@ contract Arbiter is Bytes{
 
         bytes memory multi_n = toBytes(_publicKey.length);
         bytes memory elaHash = toBytes(_elaHash);
-        bytes memory input = concat(elaHash, multi_n);
+        bytes memory input = concat(elaHash, toBytes(_to));
+        input = concat(input, multi_n);
         input = concat(input, toBytes(multi_m));
         input = concat(input, toBytes(_signature.length));
         uint i;
