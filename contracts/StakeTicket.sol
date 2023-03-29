@@ -82,15 +82,6 @@ contract StakeTicket is Initializable,Arbiter,OwnableUpgradeable{
         );
     }
 
-    /**
-        @notice just for test
-        @param tokenId nft id of the ERC721
-     */
-    function mintTick(uint256 tokenId) external {
-        
-        ERC721MinterBurnerPauser(_erc721Address).mint( msg.sender,tokenId,"0x0");
-
-    }
 
     /**
         @notice mint the stake tick
@@ -119,30 +110,6 @@ contract StakeTicket is Initializable,Arbiter,OwnableUpgradeable{
         _idTickInfoMap[tokenId].isBurned = true;
     }
 
-    /**
-        @notice tranfer the stake tick
-        @param tokenId nft id of the ERC721
-     */
-    function tranferTick(address to,uint256 tokenId) public {
-       
-       require(tokenId > 0,"stake amount must larger than 0");
-
-       ERC721MinterBurnerPauser(_erc721Address).safeTransferFrom(msg.sender,to,tokenId);
-       _idTickInfoMap[tokenId].owner = to;
-    }
-
-    /**
-        @notice withDraw the stake tick
-        @param tokenId nft id of the ERC721
-     */
-    function withDrawTick(uint256 tokenId,string memory withDrawTo) public {
-       
-       require(tokenId > 0,"stake amount must larger than 0");
-       require(msg.sender == _idTickInfoMap[tokenId].owner,"ticket owner is not collect");
-
-       _idTickInfoMap[tokenId].withDrawTo = withDrawTo;
-
-    }
 
     function getNFTContract() public view returns (address){
         return _erc721Address;
