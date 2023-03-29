@@ -6,6 +6,7 @@ pragma experimental ABIEncoderV2;
 import "./ERC721MinterBurnerPauser.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+import "@openzeppelin/contracts/utils/Address.sol";
 import "./Arbiter.sol";
 
 import "hardhat/console.sol";
@@ -16,13 +17,7 @@ import "hardhat/console.sol";
 //contract StakeTicket is Initializable,Arbiter,ERC721MinterBurnerPauser,OwnableUpgradeable{
 contract StakeTicket is Initializable,Arbiter,OwnableUpgradeable{
     struct TickInfo{
-        address owner;
-        uint256 amount;
-        uint256 startTimeSpan;
-        string supperNode;
         bytes32[] txList;
-        string withDrawTo;
-        bool isBurned;
     }
 
     address private _erc721Address;
@@ -32,7 +27,6 @@ contract StakeTicket is Initializable,Arbiter,OwnableUpgradeable{
     event StakeTicketMint(
         address to, 
         uint256 tokenId, 
-        uint256 startTimeSpan,
         bytes32 txHash
     );
 
@@ -62,22 +56,19 @@ contract StakeTicket is Initializable,Arbiter,OwnableUpgradeable{
         return true;
      }
 
-    function claim(bytes32 elaHash, bytes[] memory signatures, bytes[] memory publicKeys, uint256 multi_m) external {
-        uint isVerified = pledgeBillVerify(elaHash, signatures, publicKeys, multi_m);
+    function claim(bytes32 elaHash, address to, bytes[] memory signatures, bytes[] memory publicKeys, uint256 multi_m) external {
+        require(!Address.isContract(to), "claim_onlyEOA");
+        uint isVerified = pledgeBillVerify(elaHash, to, signatures, publicKeys, multi_m);
         require(isVerified == 1,"pledgeBill Verify do not pass !");
         uint256 tokenId = getTokenIDByTxhash(elaHash);
         require(isNotClaimed(elaHash, tokenId), "isClaimed");
 
-        _idTickInfoMap[tokenId].startTimeSpan = block.timestamp;
         _idTickInfoMap[tokenId].txList.push(elaHash);
-        _idTickInfoMap[tokenId].owner = msg.sender;
-        _idTickInfoMap[tokenId].isBurned = false;
         //
-        ERC721MinterBurnerPauser(_erc721Address).mint( msg.sender,tokenId,"0x0");
+        ERC721MinterBurnerPauser(_erc721Address).mint(to,tokenId,"0x0");
         emit StakeTicketMint(
-            msg.sender,
+            to,
             tokenId,
-            block.timestamp,
             elaHash
         );
     }
@@ -107,7 +98,6 @@ contract StakeTicket is Initializable,Arbiter,OwnableUpgradeable{
             tokenId,
             saddress
        );
-        _idTickInfoMap[tokenId].isBurned = true;
     }
 
 
