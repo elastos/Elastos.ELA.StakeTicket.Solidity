@@ -7,7 +7,7 @@ var Web3 = require('web3')
 var web3 = new Web3(network.provider)
 
 const {
-    setup, deployERC721, sleep
+    NAME721, SYMBOL721, BASEURI, deployERC721, sleep
 } = require("../scripts/utils/helper")
 const {formatBytes32String} = require("ethers/lib/utils");
 const {getRpcReceiptOutputsFromLocalBlockExecution} = require("hardhat/internal/hardhat-network/provider/output");
@@ -25,11 +25,12 @@ describe(`Stake Ticket Contact `, () => {
         [admin,user1,user2] = [accounts[0],accounts[1],accounts[2]];
         console.log("chainID is :" + chainID + " address :" + admin.address);
         erc721Contract = await deployERC721(
-            "stakeNft",
-            "nft",
-            "",
+            NAME721,
+            SYMBOL721,
+            "testURL",
             admin);
         console.log("erc721Contract.address", erc721Contract.address);
+        console.log("nftName", await erc721Contract.name(), "symbol", await erc721Contract.symbol(), "baseURL", await erc721Contract.baseURI());
 
     })
 

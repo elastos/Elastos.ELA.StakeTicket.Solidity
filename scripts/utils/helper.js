@@ -108,9 +108,9 @@ async function deployStakeTicket(erc721Address,account){
 
 }
 
-let NAME721 = "ELAStake721";
-let SYMBOL721 = "ELAStake721";
-let BASEURI = "https://elaTicket";
+let NAME721 = "Bonded Staked ELA NFT";
+let SYMBOL721 = "bELA";
+let BASEURI = "";
 
 async function setup(admin){
 
@@ -154,8 +154,10 @@ module.exports = {
     attachNFTContract,
 
     isTxSuccess,
-    hex2a,
-    setup
+    NAME721,
+    setup,
+    SYMBOL721,
+    BASEURI
 
 
 }
