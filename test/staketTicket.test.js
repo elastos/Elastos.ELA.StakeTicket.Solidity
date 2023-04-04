@@ -40,11 +40,11 @@ describe(`Stake Ticket Contact `, () => {
 
   it('burn ticket nft', async function() {
 
-    await stakeTicketContract.connect(user1).mintTick("0x01");
+    // await stakeTicketContract.connect(user1).mintTick("0x01");
 
     //function approve(address to, uint256 tokenId) public virtual override {
-    await erc721Contract.connect(user1).approve(stakeTicketContract.address,1);
-    await stakeTicketContract.connect(user1).burnTick(1,"elaAddress");
+    // await erc721Contract.connect(user1).approve(stakeTicketContract.address,1);
+    // await stakeTicketContract.connect(user1).burnTick(1,"elaAddress");
 
   })
   

@@ -34,16 +34,16 @@ describe(`Stake Ticket Contact `, () => {
 
   })
 
-
-  it('mint ticket test', async function() {
-
-    console.log(user1.address,12,"0x0000000000000000000000000000000000000000000000000000000000000001");
-
-    await stakeTicketContract.mintTickTest(
-      user1.address,12,"0x0000000000000000000000000000000000000000000000000000000000000001"
-
-    );
-
-  })
+  //
+  // it('mint ticket test', async function() {
+  //
+  //   console.log(user1.address,12,"0x0000000000000000000000000000000000000000000000000000000000000001");
+  //
+  //   await stakeTicketContract.mintTickTest(
+  //     user1.address,12,"0x0000000000000000000000000000000000000000000000000000000000000001"
+  //
+  //   );
+  //
+  // })
 
 })

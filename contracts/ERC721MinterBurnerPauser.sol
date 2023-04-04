@@ -12,7 +12,6 @@ import "@openzeppelin/contracts/token/ERC721/ERC721Pausable.sol";
 
 contract ERC721MinterBurnerPauser is Context, AccessControl, ERC721Burnable, ERC721Pausable{
 
-    string private _baseURI;
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
 
     /**
@@ -23,7 +22,7 @@ contract ERC721MinterBurnerPauser is Context, AccessControl, ERC721Burnable, ERC
      * See {ERC721-tokenURI}.
      */
     constructor(string memory name, string memory symbol, string memory baseURI) ERC721(name, symbol) {
-        _baseURI = baseURI;
+        _setBaseURI(baseURI);
         _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());
     }
 
