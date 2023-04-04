@@ -122,7 +122,6 @@ async function setup(admin){
  
     let stakeTicketContract = await deployStakeTicket(
                                     erc721Contract.address,
-                                    "v1.0.0",
                                     admin);
 
     await erc721Contract.setMinterRole(stakeTicketContract.address);
