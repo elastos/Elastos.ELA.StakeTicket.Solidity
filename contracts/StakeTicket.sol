@@ -12,7 +12,7 @@ import "./Arbiter.sol";
 import "hardhat/console.sol";
 /**
     @title Facilitates deposits and creation of deposit executions.
-    @author ChainSafe Systems.
+    @author Elastos Gelaxy team.
  */
 //contract StakeTicket is Initializable,Arbiter,ERC721MinterBurnerPauser,OwnableUpgradeable{
 contract StakeTicket is Initializable,Arbiter,OwnableUpgradeable{
