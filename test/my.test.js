@@ -34,15 +34,13 @@ describe(`Stake Ticket Contact `, () => {
 
   })
 
-  //
+
   // it('mint ticket test', async function() {
   //
   //   console.log(user1.address,12,"0x0000000000000000000000000000000000000000000000000000000000000001");
   //
-  //   await stakeTicketContract.mintTickTest(
-  //     user1.address,12,"0x0000000000000000000000000000000000000000000000000000000000000001"
-  //
-  //   );
+  //   let tx = await erc721Contract.connect(stakeTicketContract.address).mint(user1.address,12,"0x0000000000000000000000000000000000000000000000000000000000000001");
+  //   console.log("tx.hash", tx.hash);
   //
   // })
 
