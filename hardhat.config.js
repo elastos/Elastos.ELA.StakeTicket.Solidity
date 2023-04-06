@@ -19,14 +19,14 @@ module.exports = {
       ],
     },
 
-    reg: {
+    regtest: {
       url: `http://${internal_url}:20636`,
       accounts: [
         `${private_key}`
       ],
     },
 
-    test: {
+    testnet: {
       url: `https://api-testnet.elastos.io/esc`,
       accounts: [
         `${private_key}`
