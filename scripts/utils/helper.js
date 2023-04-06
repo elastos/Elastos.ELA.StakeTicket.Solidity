@@ -108,8 +108,8 @@ async function deployStakeTicket(erc721Address,account){
 
 }
 
-let NAME721 = "Bonded Staked ELA NFT";
-let SYMBOL721 = "bELA";
+let NAME721 = "BPoS NFT";
+let SYMBOL721 = "bNFT";
 let BASEURI = "";
 
 async function setup(admin){
