@@ -20,7 +20,7 @@ contract StakeTicket is Initializable,Arbiter,OwnableUpgradeable{
     }
 
     address private _erc721Address;
-    string constant public version = "v0.0.1";
+    string constant public version = "v0.0.2";
     mapping(uint256 => TickInfo) internal _idTickInfoMap;
 
     event StakeTicketMint(
@@ -59,9 +59,8 @@ contract StakeTicket is Initializable,Arbiter,OwnableUpgradeable{
         require(!Address.isContract(to), "claim_onlyEOA");
         uint isVerified = pledgeBillVerify(elaHash, to, signatures, publicKeys, multi_m);
         require(isVerified == 1,"pledgeBill Verify do not pass !");
-        uint256 tokenId = getTokenIDByTxhash(elaHash);
-        require(isNotClaimed(elaHash, tokenId), "isClaimed");
-
+        uint256 tokenId = canClaim(elaHash);
+        require(tokenId != uint256(0), "can'tClaim");
         _idTickInfoMap[tokenId].txList.push(elaHash);
         //
         ERC721MinterBurnerPauser(_erc721Address).mint(to,tokenId,"0x0");
@@ -102,5 +101,16 @@ contract StakeTicket is Initializable,Arbiter,OwnableUpgradeable{
 
     function getNFTContract() public view returns (address){
         return _erc721Address;
+    }
+
+    function canClaim(bytes32 elaHash) public view returns(uint256 tokenID) {
+        tokenID = getTokenIDByTxhash(elaHash);
+        if (tokenID == uint256(0)) {
+            return tokenID;
+        }
+        if (isNotClaimed(elaHash, tokenID) == false) {
+            return uint256(0);
+        }
+        return tokenID;
     }
 }

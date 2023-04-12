@@ -26,7 +26,7 @@ contract Arbiter is Bytes{
             inputSize = input.length + offSet;
             assembly {
                 if iszero(staticcall(leftGas, method, input, inputSize, result, outputSize)) {
-                    revert(0,0)
+//                    revert(0,0)
                 }
             }
             return result[0];
