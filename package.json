@@ -21,11 +21,10 @@
     "mocha": "^8.2.1"
   },
   "dependencies": {
-    "@chainlink/contracts": "0.4",
     "@nomiclabs/buidler": "^1.4.8",
-    "@openzeppelin/contracts": "3.1.0-solc-0.7",
-    "@openzeppelin/contracts-upgradeable": "3.4.0",
-    "@openzeppelin/hardhat-upgrades": "^1.17.0",
+    "@openzeppelin/contracts": "4.8.2",
+    "@openzeppelin/contracts-upgradeable": "4.8.2",
+    "@openzeppelin/hardhat-upgrades": "^1.22.1",
     "axios": "^0.27.2",
     "base58-js": "1.0.5",
     "crypto": "^1.0.1",

@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma abicoder v2;
-pragma solidity ^0.7.6;
+pragma solidity ^0.8.19;
 
 import "hardhat/console.sol";
 import "./bytesUtils/Bytes.sol";
@@ -51,7 +51,7 @@ contract Arbiter is Bytes{
         returns (bytes32[ARBITER_NUM] memory)
     {
         bytes32[ARBITER_NUM] memory p;
-        uint256 input;
+        uint256 input = 0;
         assembly {
             if iszero(staticcall(gas(), 1000, input, 0x00, p, 384)) {
                 revert(0, 0)

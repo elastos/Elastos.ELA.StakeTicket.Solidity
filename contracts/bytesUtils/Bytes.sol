@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.7.6;
+pragma solidity ^0.8.19;
 //pragma experimental "v0.5.0";
 pragma experimental "ABIEncoderV2";
 
@@ -138,7 +138,7 @@ contract Bytes {
     // Returns the newly created 'bytes memory'
     // The returned bytes will be of length '20'.
     function toBytes(address self) internal pure returns (bytes memory bts) {
-        bts = toBytes(bytes32(uint(self) << 96), 20);
+        bts = toBytes(bytes20(uint160(self) << 96), 20);
     }
 
     // Copies 'self' into a new 'bytes memory'.
@@ -167,7 +167,7 @@ contract Bytes {
     //  - 'bts[0] == 1 (if self == true)'
     function toBytes(bool self) internal pure returns (bytes memory bts) {
         bts = new bytes(1);
-        bts[0] = self ? byte(uint8(1)) : byte(uint8(0));
+        bts[0] = self ? bytes1(uint8(1)) : bytes1(uint8(0));
     }
 
     // Computes the index of the highest byte set in 'self'.

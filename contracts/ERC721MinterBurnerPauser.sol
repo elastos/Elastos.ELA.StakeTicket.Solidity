@@ -1,17 +1,21 @@
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.7.6;
+// The Licensed Work is (c) 2022 Sygma
+// SPDX-License-Identifier: BUSL-1.1
+pragma solidity ^0.8.19;
 
 // This is adapted from https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.0.0/contracts/presets/ERC721PresetMinterPauserAutoId.sol
 
 import "./utils/AccessControl.sol";
-import "@openzeppelin/contracts/GSN/Context.sol";
+import "@openzeppelin/contracts/utils/Context.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
-import "@openzeppelin/contracts/token/ERC721/ERC721Burnable.sol";
-import "@openzeppelin/contracts/token/ERC721/ERC721Pausable.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Pausable.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 
-contract ERC721MinterBurnerPauser is Context, AccessControl, ERC721Burnable, ERC721Pausable{
+contract ERC721MinterBurnerPauser is Context, AccessControl, ERC721Burnable, ERC721Pausable,ERC721URIStorage{
 
+    string private _baseURIData;
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
+    bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
 
     /**
      * @dev Grants `DEFAULT_ADMIN_ROLE` and `MINTER_ROLE`to the account that
@@ -21,25 +25,20 @@ contract ERC721MinterBurnerPauser is Context, AccessControl, ERC721Burnable, ERC
      * See {ERC721-tokenURI}.
      */
     constructor(string memory name, string memory symbol, string memory baseURI) ERC721(name, symbol) {
-        _setBaseURI(baseURI);
+
+        _baseURIData = baseURI;
+
         _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());
+        _setupRole(MINTER_ROLE, _msgSender());
+        _setupRole(PAUSER_ROLE, _msgSender());
+
     }
 
-    function setMinterRole(address mintAddress) public {
+    function setMinterRole(address mintAddress) public{
+
         require(hasRole(DEFAULT_ADMIN_ROLE, _msgSender()), "ERC721MinterBurnerPauser: must have admin role to mint");
-        uint num = getRoleMemberCount(MINTER_ROLE);
-        if (num > 0) {
-            address oldAddress = getRoleMember(MINTER_ROLE, num - 1);
-            revokeRole(MINTER_ROLE, oldAddress);
-        }
         _setupRole(MINTER_ROLE, mintAddress);
-    }
 
-    function changeAdminRole(address newAdmin) public {
-        require(newAdmin != address(0), "InvalidNewAdmin");
-        require(hasRole(DEFAULT_ADMIN_ROLE, _msgSender()), "ERC721MinterBurnerPauser: must have admin role to changeAdminRole");
-        revokeRole(DEFAULT_ADMIN_ROLE, _msgSender());
-        _setupRole(DEFAULT_ADMIN_ROLE, newAdmin);
     }
 
     /**
@@ -72,7 +71,7 @@ contract ERC721MinterBurnerPauser is Context, AccessControl, ERC721Burnable, ERC
      * - the caller must have the `PAUSER_ROLE`.
      */
     function pause() public {
-        require(hasRole(DEFAULT_ADMIN_ROLE, _msgSender()), "ERC721MinterBurnerPauser: must have pauser role to pause");
+        require(hasRole(PAUSER_ROLE, _msgSender()), "ERC721MinterBurnerPauser: must have pauser role to pause");
         _pause();
     }
 
@@ -86,17 +85,21 @@ contract ERC721MinterBurnerPauser is Context, AccessControl, ERC721Burnable, ERC
      * - the caller must have the `PAUSER_ROLE`.
      */
     function unpause() public {
-        require(hasRole(DEFAULT_ADMIN_ROLE, _msgSender()), "ERC721MinterBurnerPauser: must have pauser role to unpause");
+        require(hasRole(PAUSER_ROLE, _msgSender()), "ERC721MinterBurnerPauser: must have pauser role to unpause");
         _unpause();
     }
 
-    function _beforeTokenTransfer(address from, address to, uint256 tokenId) internal override(ERC721, ERC721Pausable) {
-        super._beforeTokenTransfer(from, to, tokenId);
+    function _beforeTokenTransfer(address from, address to, uint256 tokenId, uint256 batchSize) internal virtual override(ERC721,ERC721Pausable) {
+        super._beforeTokenTransfer(from, to, tokenId,batchSize);
     }
 
 
-    function _burn(uint256 tokenId) internal virtual override(ERC721) {
+    function _burn(uint256 tokenId) internal virtual override(ERC721,ERC721URIStorage) {
         super._burn(tokenId);
+    }
+
+    function tokenURI(uint256 tokenId) public view virtual override (ERC721,ERC721URIStorage)returns (string memory) {
+        return super.tokenURI(tokenId);
     }
 
 }
