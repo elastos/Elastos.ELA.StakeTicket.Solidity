@@ -88,7 +88,28 @@ async function deployERC721(name,symbol,baseURI,account){
 
 }
 
-async function deployStakeTicket(erc721Address,account){
+async function deployERC721Upgradeable(name,symbol,baseURI,account){
+
+
+    // constructor(string memory name, string memory symbol, string memory baseURI) ERC721(name, symbol) {
+    const erc721UpgradeableFactory = await ethers.getContractFactory("ERC721UpradeableMinterBurnerPauser",account);
+
+    const erc721ContractUpgradeable = await upgrades.deployProxy(
+        erc721UpgradeableFactory,
+        [
+            name,symbol,baseURI
+        ],
+        {
+            initializer:  "__ERC721UpradeableMinterBurnerPauser_initialize",
+            unsafeAllowLinkedLibraries: true,
+        }
+    );
+
+    return erc721ContractUpgradeable;
+
+}
+
+async function deployStakeTicket(erc721Address,erc721UpgradeableAddress,account){
 
 
     // constructor(string memory name, string memory symbol, string memory baseURI) ERC721(name, symbol) {
@@ -96,7 +117,7 @@ async function deployStakeTicket(erc721Address,account){
     const stakeTicketContract = await upgrades.deployProxy(
         stakeTicketFactory,
         [
-            erc721Address
+            erc721Address,erc721UpgradeableAddress
         ],
         {
             initializer:  "__StakeTicket_init",
@@ -120,14 +141,22 @@ async function setup(admin){
                             BASEURI,
                             admin);
  
+    let erc721UpgradeableContract = await deployERC721Upgradeable(
+        NAME721,
+        SYMBOL721,
+        BASEURI,
+        admin);
+
     let stakeTicketContract = await deployStakeTicket(
                                     erc721Contract.address,
+                                    erc721UpgradeableContract.address,
                                     admin);
 
-    await erc721Contract.setMinterRole(stakeTicketContract.address);
+    await erc721Contract.setMinterRole(stakeTicketContract.address);    
+    await erc721UpgradeableContract.setMinterRole(stakeTicketContract.address);
     
     return {
-        erc721Contract,stakeTicketContract
+        erc721Contract,erc721UpgradeableContract,stakeTicketContract
     }
 }
 
@@ -147,6 +176,7 @@ module.exports = {
     writeConfig,
     readConfig, 
     deployERC721,
+    deployERC721Upgradeable,
     deployStakeTicket,
     sleep,
     attachStakeTicket,

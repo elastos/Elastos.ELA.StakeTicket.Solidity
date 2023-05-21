@@ -13,7 +13,6 @@ contract Arbiter is Bytes{
     //xxl Done
     uint256 public constant ARBITER_NUM = 12;
     // using Bytes for bytes;
-
     function getTokenIDByTxhash(bytes32 _elaHash) public view returns (uint256) {
             uint method = 1004;
             uint offSet = 32;
