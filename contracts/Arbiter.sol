@@ -31,6 +31,46 @@ contract Arbiter is Bytes{
             return result[0];
     }
 
+    function getBPosNFTPayloadVersion(bytes32 _elaHash) public view returns (uint256) {
+        uint method = 1006;
+        uint offSet = 32;
+        uint outputSize = 32;
+        uint256[1] memory result;
+        uint256 inputSize = 0;
+        uint256 leftGas = gasleft();
+
+        bytes memory input = toBytes(_elaHash);
+        inputSize = input.length + offSet;
+        assembly {
+            if iszero(staticcall(leftGas, method, input, inputSize, result, outputSize)) {
+                revert(0,0)
+            }
+        }
+        return result[0];
+    }
+
+    function getBPosNFTInfo(bytes32 _elaHash) public view returns(bytes32, string memory, bytes32, uint32,uint32,int64,int64,bytes memory) {
+        bytes32[14] memory result;
+        uint256 inputSize = 0;
+
+        bytes memory input = toBytes(_elaHash);
+        inputSize = input.length + 32;
+        assembly {
+            if iszero(staticcall(gas(), 1005, input, inputSize, result, 448)) {
+                revert(0,0)
+            }
+        }
+
+        bytes memory data = new bytes(0);
+        uint i = 0;
+        bytes memory a;
+        for  (i = 0; i< result.length; i++) {
+            a = toBytes(result[i]);
+            data = concat(data, a);
+        }
+        return abi.decode(data, (bytes32, string, bytes32, uint32, uint32, int64, int64, bytes));
+    }
+
     //uint256 constant public ARBITER_NUM = 3;
     function isArbiterInList(bytes32 arbiter) internal view returns (bool) {
         bytes32[ARBITER_NUM] memory arbiterList = getArbiterList();
