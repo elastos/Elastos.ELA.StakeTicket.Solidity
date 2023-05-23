@@ -21,13 +21,14 @@ const main = async () => {
     console.log("instanceV1", instanceV1.address, "version", version);
 
     let erc721Address = await readConfig("0","ERC721_ADDRESS");
+    let erc721V2Address = await readConfig("0","ERC721_BPOSV1_ADDRESS");
 
     const stakestick2 = await ethers.getContractFactory("StakeTicket", owner);
     console.log('stakeTicket start upgrade ! ')
     await upgrades.upgradeProxy(
         stakeSticketAddress,
         stakestick2,
-        {args: [erc721Address]},
+        {args: [erc721Address, erc721V2Address]},
         {call:"__StakeTicket_init"},
     );
     await sleep(15000);
@@ -35,7 +36,8 @@ const main = async () => {
 
     const instanceV2 = await stakestick2.attach(stakeSticketAddress);
     version = await instanceV2.version();
-    console.log("instanceV2", instanceV2.address, "version", version);
+    let tx = await instanceV2.setERC721UpgradeAddress(erc721V2Address)
+    console.log("instanceV2", instanceV2.address, "version", version, "tx.hash", tx.hash);
 
 }
 

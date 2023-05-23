@@ -28,7 +28,7 @@ const main = async () => {
     let saddress = createSaddress(publicKey)
     console.log("saddress", saddress)
 
-    let tokenID = BigInt("0x78c1645758228af7255c596cdc276d95ce47b52533b0bf14bd0136cf61560f01")
+    let tokenID = BigInt("24321663383758171497331128045553867915983080013115371228720067867067809947027")
     let tx = await nftContract.approve(stakeSticket.address, tokenID);
     await sleep(10000)
     console.log("approve tx.hash = ", tx.hash);

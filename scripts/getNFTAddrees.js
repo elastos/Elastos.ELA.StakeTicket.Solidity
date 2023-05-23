@@ -18,6 +18,8 @@ const main = async () => {
     let nftAddress = await stakeSticket.getNFTContract();
     console.log("nftAddress", nftAddress);
 
+    let upgradeNftAddress = await stakeSticket.getNFTUpgradeableContract();
+    console.log("upgradeNftAddress", upgradeNftAddress);
 }
 
 const curveLength = Math.ceil(256 / 8) /* Byte length for validation */

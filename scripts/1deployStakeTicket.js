@@ -1,7 +1,7 @@
 
 const { ethers, getChainId} = require('hardhat')
 const { utils} = require('ethers')
-const { writeConfig,deployStakeTicket,readConfig, attachNFTContract} = require('./utils/helper')
+const { writeConfig,deployStakeTicket,readConfig, attachNFTContract, deployERC721Upgradeable} = require('./utils/helper')
 
 const main = async () => {
 
@@ -21,6 +21,13 @@ const main = async () => {
     let nftContract = await attachNFTContract(deployer, erc721Address)
 
     let tx = await nftContract.setMinterRole(stakeTicketContract.address);
+    console.log("setMinerRole tx.hash", tx.hash)
+
+
+    erc721Address = await readConfig("0","ERC721_BPOSV1_ADDRESS");
+    nftContract = await attachNFTContract(deployer, erc721Address)
+
+    tx = await nftContract.setMinterRole(stakeTicketContract.address);
     console.log("setMinerRole tx.hash", tx.hash)
    
 }

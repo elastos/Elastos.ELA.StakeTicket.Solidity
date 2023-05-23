@@ -1,6 +1,6 @@
 const { ethers, getChainId} = require('hardhat')
 const { utils} = require('ethers')
-const { attachStakeTicket,attachNFTContract, readConfig, sleep} = require('./utils/helper')
+const { attachStakeTicket,attachNFTContract, readConfig, sleep, attachUpgradeNFTContract} = require('./utils/helper')
 const crypto = require("crypto");
 const ECDSA = require('ecdsa-secp256r1')
 const web3 = require("web3")
@@ -46,14 +46,27 @@ const main = async () => {
     let erc721Address = await readConfig("0","ERC721_ADDRESS");
     let nftContract= await attachNFTContract(deployer, erc721Address)
     let balance = await nftContract.balanceOf(deployer.address)
-    console.log("balance of nft", balance)
+    console.log("balance of version0 nft", balance)
     if (balance > 0) {
-        for(var i = 0 ;i < balance ;i ++ ){
-            let tokenID = await await nftContract.tokenOfOwnerByIndex(deployer.address,i);
+        for(let i = 0 ;i < balance ;i ++ ){
+            let tokenID = await nftContract.tokenOfOwnerByIndex(deployer.address,i);
             let ownerOf = await nftContract.ownerOf(tokenID)
-            console.log("tokenID of nft", "hex format",i, "uint256 format",BigInt(tokenID).toString(), "owner", ownerOf)
+            console.log("tokenID of nft", "index",i, "uint256 format",BigInt(tokenID).toString(), "owner", ownerOf)
         }
+    }
 
+    erc721Address = await readConfig("0","ERC721_BPOSV1_ADDRESS");
+    let nft2Contract = await attachUpgradeNFTContract(deployer, erc721Address)
+    balance = await nft2Contract.balanceOf(deployer.address)
+    console.log("balance of version1 nft", balance)
+    if (balance > 0) {
+        for(let i = 0 ;i < balance ;i ++ ){
+            let tokenID = await nft2Contract.tokenOfOwnerByIndex(deployer.address,i);
+            let ownerOf = await nft2Contract.ownerOf(tokenID)
+            let info = await nft2Contract.getInfo(tokenID)
+
+            console.log("nftTokenInfo", "index",i, "info", info, "owner", ownerOf)
+        }
     }
 
 }
