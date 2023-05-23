@@ -26,6 +26,7 @@ contract ERC721UpradeableMinterBurnerPauser is ContextUpgradeable, AccessControl
         bytes targetOwnerKey;
     }
     mapping(uint256 => StakeTickNFT) internal _stakeTickNFTInfo;
+    string constant public version = "v0.1.0";
 
     /**
      * @dev Grants `DEFAULT_ADMIN_ROLE` and `MINTER_ROLE`to the account that
@@ -55,6 +56,18 @@ contract ERC721UpradeableMinterBurnerPauser is ContextUpgradeable, AccessControl
         require(hasRole(DEFAULT_ADMIN_ROLE, _msgSender()), "ERC721MinterBurnerPauser: must have admin role to changeAdminRole");
         revokeRole(DEFAULT_ADMIN_ROLE, _msgSender());
         _setupRole(DEFAULT_ADMIN_ROLE, newAdmin);
+    }
+
+    /**
+     * @dev Returns whether `tokenId` exists.
+     *
+     * Tokens can be managed by their owner or approved accounts via {approve} or {setApprovalForAll}.
+     *
+     * Tokens start existing when they are minted (`_mint`),
+     * and stop existing when they are burned (`_burn`).
+     */
+    function exists(uint256 tokenId) public view returns (bool) {
+        return _exists(tokenId);
     }
 
     /**
@@ -99,7 +112,12 @@ contract ERC721UpradeableMinterBurnerPauser is ContextUpgradeable, AccessControl
         _stakeTickNFTInfo[tokenId].votes = votes;
         _stakeTickNFTInfo[tokenId].voteRights = voteRights;
         _stakeTickNFTInfo[tokenId].targetOwnerKey = targetOwnerKey;
-    }    
+    }
+
+    function getInfo(uint256 tokenId) public view returns(StakeTickNFT memory) {
+        require(tokenId > 0,"tokenId invalid");
+        return _stakeTickNFTInfo[tokenId];
+    }
 
     /**
      * @dev Pauses all token transfers.

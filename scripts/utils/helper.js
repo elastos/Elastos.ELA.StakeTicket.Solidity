@@ -109,15 +109,13 @@ async function deployERC721Upgradeable(name,symbol,baseURI,account){
 
 }
 
-async function deployStakeTicket(erc721Address,erc721UpgradeableAddress,account){
-
-
+async function deployStakeTicket(erc721Address,account){
     // constructor(string memory name, string memory symbol, string memory baseURI) ERC721(name, symbol) {
     const stakeTicketFactory = await ethers.getContractFactory("StakeTicket",account);
     const stakeTicketContract = await upgrades.deployProxy(
         stakeTicketFactory,
         [
-            erc721Address,erc721UpgradeableAddress
+            erc721Address
         ],
         {
             initializer:  "__StakeTicket_init",
@@ -166,6 +164,13 @@ async function attachNFTContract(account, address){
     return nftContract;
 }
 
+async function attachUpgradeNFTContract(account, address){
+    const facotryNFT = await ethers.getContractFactory('ERC721UpradeableMinterBurnerPauser',account)
+    let nftContract  = await facotryNFT.connect(account).attach(address);
+    return nftContract;
+}
+
+
 async function attachStakeTicket(account, address){
     const facotryStakeTicket = await ethers.getContractFactory('StakeTicket',account)
     let stakeTicket  = await facotryStakeTicket.connect(account).attach(address);
@@ -181,7 +186,7 @@ module.exports = {
     sleep,
     attachStakeTicket,
     attachNFTContract,
-
+    attachUpgradeNFTContract,
     isTxSuccess,
     NAME721,
     setup,
