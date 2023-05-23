@@ -18,7 +18,6 @@ import "hardhat/console.sol";
 contract StakeTicket is Initializable,Arbiter,OwnableUpgradeable{
     struct TickInfo{
         bytes32[] txList;
-        ERC721UpradeableMinterBurnerPauser.StakeTickNFT stakeTickNFT;
     }
 
     address private _erc721Address;
@@ -30,7 +29,7 @@ contract StakeTicket is Initializable,Arbiter,OwnableUpgradeable{
         address to, 
         uint256 tokenId, 
         bytes32 txHash,
-        ERC721UpradeableMinterBurnerPauser.StakeTickNFT stakeTickNFT
+        uint nftType 
     );
 
 
@@ -66,62 +65,30 @@ contract StakeTicket is Initializable,Arbiter,OwnableUpgradeable{
 
         require(!Address.isContract(to), "claim_onlyEOA");
 
-        // TODO just for local test        
-            // uint isVerified = pledgeBillVerify(elaHash, to, signatures, publicKeys, multi_m);
-            // require(isVerified == 1,"pledgeBill Verify do not pass !");
+        // TODO test the result 
+        uint isVerified = pledgeBillVerify(elaHash, to, signatures, publicKeys, multi_m);
+        require(isVerified == 1,"pledgeBill Verify do not pass !");
 
-            // // TODO get the  precompile contract value
-            // uint256 tokenId = getTokenIDByTxhash(elaHash);
-            // require(isNotClaimed(elaHash, tokenId), "isClaimed");
-        /// 
+        // TODO get the  precompile contract value
+        uint256 tokenId = getTokenIDByTxhash(elaHash);
+        require(isNotClaimed(elaHash, tokenId), "isClaimed");
+         _idTickInfoMap[tokenId].txList.push(elaHash);
 
         //dummy data
-        uint256 tokenId = 1;
-        uint8 nftType = 1;
-
-        _idTickInfoMap[tokenId].txList.push(elaHash);
+        uint nftType = getBPosNFTPayloadVersion(elaHash);
         if(nftType == 0){
-            // TODO 
-            // _mintByErc721(to,tokenId,elaHash);
+            ERC721MinterBurnerPauser(_erc721Address).mint(to,tokenId,"0x0");
         }else{
-            // TODO 
-            _idTickInfoMap[tokenId].stakeTickNFT = ERC721UpradeableMinterBurnerPauser.StakeTickNFT(0,address(0),1,2,3,4,5,"abc");
-            _mintByErc721Upgradeable(
-                to,1,elaHash,_idTickInfoMap[tokenId].stakeTickNFT
-            );
+            ERC721UpradeableMinterBurnerPauser(_erc721UpgradeableAddress).mint(to,tokenId,"0x0",elaHash);
         }
 
-
-    }
-
-    function _mintByErc721(address to, uint256 tokenId,bytes32 elaHash )internal{
-
-            ERC721MinterBurnerPauser(_erc721Address).mint(to,tokenId,"0x0");
-            emit StakeTicketMint(
-                to,
-                tokenId,
-                elaHash,
-                ERC721UpradeableMinterBurnerPauser.StakeTickNFT(0,address(0),0,0,0,0,0,"0")
-            );
-    }
-
-    function _mintByErc721Upgradeable(
-        address to, 
-        uint256 tokenId,
-        bytes32 elaHash,
-        ERC721UpradeableMinterBurnerPauser.StakeTickNFT memory stakeTickNFT
-        )internal{
-
-        ERC721UpradeableMinterBurnerPauser(_erc721UpgradeableAddress).mint(
-            to,tokenId,"0x0",
-            stakeTickNFT
-        );
         emit StakeTicketMint(
             to,
             tokenId,
             elaHash,
-            stakeTickNFT
+            nftType
         );
+
     }
 
     /**

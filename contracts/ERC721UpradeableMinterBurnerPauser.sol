@@ -7,21 +7,22 @@ import "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol"
 import "@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721BurnableUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721PausableUpgradeable.sol";
+import "./Arbiter.sol";
 
 import "hardhat/console.sol";
 
-contract ERC721UpradeableMinterBurnerPauser is ContextUpgradeable, AccessControlUpgradeable,ERC721BurnableUpgradeable, ERC721PausableUpgradeable{
+contract ERC721UpradeableMinterBurnerPauser is ContextUpgradeable, AccessControlUpgradeable,ERC721BurnableUpgradeable, ERC721PausableUpgradeable,Arbiter{
 
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
     bytes32 public constant BURNER_ROLE = keccak256("BURNER_ROLE");
     struct StakeTickNFT{
-        uint256 referKey;
-        address stakeAddress;
-        uint256 genesisBlockHash;
+        bytes32 referKey;
+        string stakeAddress;
+        bytes32 genesisBlockHash;
         uint32 startHeight;
         uint32 endHeight;
-        uint64 votes;
-        uint64 voteRights;
+        int64 votes;
+        int64 voteRights;
         bytes targetOwnerKey;
     }
     mapping(uint256 => StakeTickNFT) internal _stakeTickNFTInfo;
@@ -71,15 +72,34 @@ contract ERC721UpradeableMinterBurnerPauser is ContextUpgradeable, AccessControl
         address to, 
         uint256 tokenId, 
         string memory data,
-        StakeTickNFT memory stakeTickNFT
+        bytes32 elaHash
     ) public {
         require(hasRole(MINTER_ROLE, _msgSender()), "ERC721UpradeableMinterBurnerPauser: must have minter role to mint");
 
         _mint(to, tokenId);
         _setTokenURI(tokenId, data);
 
-        _stakeTickNFTInfo[tokenId] = stakeTickNFT;
-    }
+
+        bytes32 referKey;
+        string memory stakeAddress;
+        bytes32 genesisBlockHash;
+        uint32 startHeight;
+        uint32 endHeight;
+        int64 votes;
+        int64 voteRights;
+        bytes memory targetOwnerKey;
+
+        (referKey,stakeAddress,genesisBlockHash,startHeight,endHeight,votes,voteRights,targetOwnerKey) = getBPosNFTInfo(elaHash);
+        
+        _stakeTickNFTInfo[tokenId].referKey = referKey;
+        _stakeTickNFTInfo[tokenId].stakeAddress = stakeAddress;
+        _stakeTickNFTInfo[tokenId].genesisBlockHash = genesisBlockHash;
+        _stakeTickNFTInfo[tokenId].startHeight = startHeight;
+        _stakeTickNFTInfo[tokenId].endHeight = endHeight;
+        _stakeTickNFTInfo[tokenId].votes = votes;
+        _stakeTickNFTInfo[tokenId].voteRights = voteRights;
+        _stakeTickNFTInfo[tokenId].targetOwnerKey = targetOwnerKey;
+    }    
 
     /**
      * @dev Pauses all token transfers.
