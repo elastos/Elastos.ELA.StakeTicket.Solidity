@@ -10,7 +10,7 @@ const main = async () => {
     //let chainID = 0;
     let accounts = await ethers.getSigners()
     let deployer = accounts[0];
-    console.log("chainID is :" + chainID + " address :" + deployer.address);
+    console.log("chainID is: " + chainID + " address: " + deployer.address);
 
 
     let erc721Contract = await deployERC721(NAME721,SYMBOL721,BASEURI,deployer);
