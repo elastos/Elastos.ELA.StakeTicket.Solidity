@@ -109,6 +109,21 @@ async function deployERC721Upgradeable(name,symbol,baseURI,account){
 
 }
 
+
+async function upgradeERC721Upgradeable(upgradeAddress,account){
+
+
+    // constructor(string memory name, string memory symbol, string memory baseURI) ERC721(name, symbol) {
+    const erc721UpgradeableFactory = await ethers.getContractFactory("ERC721UpradeableMinterBurnerPauser",account);
+
+    await upgrades.upgradeProxy(
+        upgradeAddress, 
+        erc721UpgradeableFactory,{from:account.address},
+        { gasPrice: gasPrice, gasLimit: gasLimit}
+    );
+
+}
+
 async function deployStakeTicket(erc721Address,account){
     // constructor(string memory name, string memory symbol, string memory baseURI) ERC721(name, symbol) {
     const stakeTicketFactory = await ethers.getContractFactory("StakeTicket",account);
@@ -191,7 +206,8 @@ module.exports = {
     NAME721,
     setup,
     SYMBOL721,
-    BASEURI
+    BASEURI,
+    upgradeERC721Upgradeable
 
 
 }
