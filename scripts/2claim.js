@@ -65,7 +65,7 @@ const main = async () => {
             let ownerOf = await nft2Contract.ownerOf(tokenID)
             let info = await nft2Contract.getInfo(tokenID)
 
-            console.log("nftTokenInfo", "index",i, "info", info, "owner", ownerOf)
+            console.log("nftTokenInfo", "index",i, "info", info, "owner", ownerOf, "tokenID", BigInt(tokenID).toString())
         }
     }
 
