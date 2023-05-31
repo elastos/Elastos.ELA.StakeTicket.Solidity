@@ -1,6 +1,6 @@
 const { ethers, getChainId} = require('hardhat')
 const { utils} = require('ethers')
-const { attachStakeTicket,attachNFTContract, readConfig, sleep} = require('./utils/helper')
+const { attachStakeTicket,attachNFTContract, readConfig, sleep, attachUpgradeNFTContract} = require('./utils/helper')
 const crypto = require("crypto");
 const ECDSA = require('ecdsa-secp256r1')
 const web3 = require("web3")
@@ -16,7 +16,9 @@ const main = async () => {
     let accounts = await ethers.getSigners()
     let deployer = accounts[0];
     console.log("chainID is :" + chainID + " address :" + deployer.address);
-    //
+
+    let tokenID = BigInt("24321663383758171497331128045553867915983080013115371228720067867067809947027")
+
     let erc721Address = await readConfig("1","ERC721_ADDRESS");
     let nftContract = await attachNFTContract(deployer, erc721Address)
     console.log("nftContract", nftContract.address);
@@ -28,8 +30,17 @@ const main = async () => {
     let saddress = createSaddress(publicKey)
     console.log("saddress", saddress)
 
-    let tokenID = BigInt("24321663383758171497331128045553867915983080013115371228720067867067809947027")
-    let tx = await nftContract.approve(stakeSticket.address, tokenID);
+    erc721Address = await readConfig("1","ERC721_BPOSV1_ADDRESS");
+    let nft2Contract = await attachUpgradeNFTContract(deployer, erc721Address);
+    let tx;
+    try {
+        let ownerOf = await nft2Contract.ownerOf(tokenID)
+        console.log("ownerOfV1NFT", ownerOf)
+        tx = await nft2Contract.approve(stakeSticket.address, tokenID);
+    }catch(e) {
+        tx = await nftContract.approve(stakeSticket.address, tokenID);
+    }
+
     await sleep(10000)
     console.log("approve tx.hash = ", tx.hash);
 

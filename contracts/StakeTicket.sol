@@ -123,8 +123,6 @@ contract StakeTicket is Initializable,Arbiter,OwnableUpgradeable{
             tokenId,
             saddress
         );
-
-        delete _idTickInfoMap[tokenId];
     }
 
     function getNFTContract() public view returns (address){
