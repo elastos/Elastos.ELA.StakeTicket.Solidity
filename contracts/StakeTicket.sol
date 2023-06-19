@@ -82,6 +82,8 @@ contract StakeTicket is Initializable,Arbiter,OwnableUpgradeable{
         if(nftType == 0){
             ERC721MinterBurnerPauser(_erc721Address).mint(to,tokenId,"0x0");
         }else{
+            require(_erc721UpgradeableAddress != address(0), "nftAddressIsZero");
+            require(Address.isContract(_erc721UpgradeableAddress), "not contract address");
             ERC721UpradeableMinterBurnerPauser(_erc721UpgradeableAddress).mint(to,tokenId,"0x0",elaHash);
         }
 
