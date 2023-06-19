@@ -21,14 +21,17 @@ const main = async () => {
     let nftContract = await attachNFTContract(deployer, erc721Address)
 
     let tx = await nftContract.setMinterRole(stakeTicketContract.address);
-    console.log("setMinerRole tx.hash", tx.hash)
+    console.log("setMinerRole1 tx.hash", tx.hash)
 
 
     erc721Address = await readConfig("0","ERC721_BPOSV1_ADDRESS");
     nftContract = await attachNFTContract(deployer, erc721Address)
 
     tx = await nftContract.setMinterRole(stakeTicketContract.address);
-    console.log("setMinerRole tx.hash", tx.hash)
+    console.log("setMinerRole2 tx.hash", tx.hash)
+
+    tx = await nftContract.setERC721UpgradeAddress(erc721Address)
+    console.log("setERC721UpgradeAddress", tx.hash);
    
 }
 
