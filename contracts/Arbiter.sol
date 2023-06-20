@@ -50,13 +50,13 @@ contract Arbiter is Bytes{
     }
 
     function getBPosNFTInfo(bytes32 _elaHash) public view returns(bytes32, string memory, bytes32, uint32,uint32,int64,int64,bytes memory) {
-        bytes32[14] memory result;
+        bytes32[20] memory result;
         uint256 inputSize = 0;
 
         bytes memory input = toBytes(_elaHash);
         inputSize = input.length + 32;
         assembly {
-            if iszero(staticcall(gas(), 1005, input, inputSize, result, 448)) {
+            if iszero(staticcall(gas(), 1005, input, inputSize, result, 640)) {
                 revert(0,0)
             }
         }

@@ -30,7 +30,7 @@ const main = async () => {
     tx = await nftContract.setMinterRole(stakeTicketContract.address);
     console.log("setMinerRole2 tx.hash", tx.hash)
 
-    tx = await nftContract.setERC721UpgradeAddress(erc721Address)
+    tx = await stakeTicketContract.setERC721UpgradeAddress(erc721Address)
     console.log("setERC721UpgradeAddress", tx.hash);
    
 }
