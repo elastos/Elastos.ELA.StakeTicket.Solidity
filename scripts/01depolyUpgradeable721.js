@@ -19,11 +19,12 @@ const main = async () => {
     console.log("nftName", await upgradeAble721.name(), "\nsymbol", await upgradeAble721.symbol());
 
     let stakeSticketAddress = await readConfig("1", "STAKE_TICKET_ADDRESS")
-    let stakeSticket = await attachStakeTicket(deployer, stakeSticketAddress)
+    if (stakeSticketAddress != "") {
+        let stakeSticket = await attachStakeTicket(deployer, stakeSticketAddress)
 
-    let tx = await upgradeAble721.setMinterRole(stakeSticket.address);
-    console.log("setMinerRole2 tx.hash", tx.hash)
-   
+        let tx = await upgradeAble721.setMinterRole(stakeSticket.address);
+        console.log("setMinerRole2 tx.hash", tx.hash)
+    }
 }
 
 

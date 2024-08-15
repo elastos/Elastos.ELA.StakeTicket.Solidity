@@ -28,7 +28,7 @@ const main = async () => {
     await upgrades.upgradeProxy(
         stakeSticketAddress,
         stakestick2,
-        {args: [erc721Address, erc721V2Address]},
+        {args: [erc721Address]},
         {call:"__StakeTicket_init"},
     );
     await sleep(15000);
