@@ -39,6 +39,10 @@ const writeConfig = async (fromFile,toFile,key, value) => {
 const readConfig = async (fromFile,key) => {
 
     let fromFullFile = path.resolve(getConfigPath(), './' + fromFile + '.json')
+    if (fs.existsSync(fromFullFile) == false) {
+        return "";
+    }
+
     let contentText = fs.readFileSync(fromFullFile,'utf-8');
     let data = JSON.parse(contentText);
     return data[key];
