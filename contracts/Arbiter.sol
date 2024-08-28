@@ -14,21 +14,36 @@ contract Arbiter is Bytes{
     uint256 public constant ARBITER_NUM = 12;
     // using Bytes for bytes;
     function getTokenIDByTxhash(bytes32 _elaHash) public view returns (uint256) {
-            uint method = 1004;
+            uint selector = 1004;
             uint offSet = 32;
-            uint outputSize = 32;
-            uint256[1] memory result;
+            bytes memory result;
             uint256 inputSize = 0;
             uint256 leftGas = gasleft();
 
             bytes memory input = toBytes(_elaHash);
             inputSize = input.length + offSet;
             assembly {
-                if iszero(staticcall(leftGas, method, input, inputSize, result, outputSize)) {
+                let resultSize := 32
+                result := mload(0x40)
+                mstore(0x40, add(result, resultSize))
+                if iszero(staticcall(leftGas, selector, input, inputSize, result, resultSize)) {
                     revert(0,0)
                 }
+                let actualSize := returndatasize()
+                mstore(result, actualSize)
+                if eq(actualSize, 31) {
+                    returndatacopy(add(result, 33), 0, actualSize)
+                } 
+                if eq(actualSize, 32){
+                    returndatacopy(add(result, 32), 0, actualSize)
+                }
+                
             }
-            return result[0];
+            uint256 tokenID;
+            assembly {
+                tokenID := mload(add(result, 32))
+            }
+            return tokenID;
     }
 
     function getBPosNFTPayloadVersion(bytes32 _elaHash) public view returns (uint256) {

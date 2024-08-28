@@ -7,7 +7,7 @@ require('@openzeppelin/hardhat-upgrades');
 
 const dotenv = require("dotenv");
 dotenv.config({path: __dirname + '/.env'});
-const { private_key, internal_url } = process.env;
+const { private_key, internal_url,local_key } = process.env;
 
 module.exports = {
   
@@ -36,7 +36,7 @@ module.exports = {
     local: {
       url: `http://127.0.0.1:6111`,
       accounts: [
-        "0xc03b0a988e2e18794f2f0e881d7ffcd340d583f63c1be078426ae09ddbdec9f5"
+         `${local_key}`
       ]
     },
 
