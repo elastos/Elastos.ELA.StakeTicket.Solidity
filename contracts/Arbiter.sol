@@ -31,7 +31,7 @@ contract Arbiter is Bytes{
                 }
                 let actualSize := returndatasize()
                 mstore(result, actualSize)
-                if eq(actualSize, 31) {
+                if eq(actualSize, 31) {//because return data is bigint, if front byte is 0, will delete, if copy 32 bytes, the 0 is will fill in end
                     returndatacopy(add(result, 33), 0, actualSize)
                 } 
                 if eq(actualSize, 32){
