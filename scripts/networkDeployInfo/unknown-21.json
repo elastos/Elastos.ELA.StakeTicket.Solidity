@@ -676,6 +676,126 @@
           }
         }
       }
+    },
+    "499b98a64bea3c1407017d9032921021bcac2bc69b22efed1a6b28339e30b4ae": {
+      "address": "0x90EC24343531a0bFa737a294FfB1F1914374E07C",
+      "txHash": "0x6b040e8a0af22a7f77718f0cdd4da45d645d8d5ea52d3860bb3c0e57cb1749cd",
+      "layout": {
+        "solcVersion": "0.7.6",
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/Initializable.sol:25"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/Initializable.sol:30"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ContextUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol:31"
+          },
+          {
+            "label": "_owner",
+            "offset": 0,
+            "slot": "51",
+            "type": "t_address",
+            "contract": "OwnableUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:20"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "52",
+            "type": "t_array(t_uint256)49_storage",
+            "contract": "OwnableUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:74"
+          },
+          {
+            "label": "_erc721Address",
+            "offset": 0,
+            "slot": "101",
+            "type": "t_address",
+            "contract": "StakeTicket",
+            "src": "contracts/StakeTicket.sol:23"
+          },
+          {
+            "label": "_idTickInfoMap",
+            "offset": 0,
+            "slot": "102",
+            "type": "t_mapping(t_uint256,t_struct(TickInfo)7742_storage)",
+            "contract": "StakeTicket",
+            "src": "contracts/StakeTicket.sol:25"
+          },
+          {
+            "label": "_erc721UpgradeableAddress",
+            "offset": 0,
+            "slot": "103",
+            "type": "t_address",
+            "contract": "StakeTicket",
+            "src": "contracts/StakeTicket.sol:26"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_bytes32)dyn_storage": {
+            "label": "bytes32[]",
+            "numberOfBytes": "32"
+          },
+          "t_array(t_uint256)49_storage": {
+            "label": "uint256[49]",
+            "numberOfBytes": "1568"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]",
+            "numberOfBytes": "1600"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_bytes32": {
+            "label": "bytes32",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_struct(TickInfo)7742_storage)": {
+            "label": "mapping(uint256 => struct StakeTicket.TickInfo)",
+            "numberOfBytes": "32"
+          },
+          "t_struct(TickInfo)7742_storage": {
+            "label": "struct StakeTicket.TickInfo",
+            "members": [
+              {
+                "label": "txList",
+                "type": "t_array(t_bytes32)dyn_storage",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          }
+        },
+        "namespaces": {}
+      }
     }
   }
 }

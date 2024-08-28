@@ -7,7 +7,7 @@ require('@openzeppelin/hardhat-upgrades');
 
 const dotenv = require("dotenv");
 dotenv.config({path: __dirname + '/.env'});
-const { private_key, internal_url,local_key } = process.env;
+const { private_key, internal_url,local_key,testnet_key } = process.env;
 
 module.exports = {
   
@@ -29,7 +29,7 @@ module.exports = {
     testnet: {
       url: `https://api-testnet.elastos.io/esc`,
       accounts: [
-        `${private_key}`
+        `${testnet_key}`
       ],
     },
 
