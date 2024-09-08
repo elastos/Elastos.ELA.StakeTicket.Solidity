@@ -120,7 +120,9 @@ contract StakeTicket is Initializable,Arbiter,OwnableUpgradeable{
         } else {
             ERC721MinterBurnerPauser(_erc721Address).burn(tokenId);
         }
-
+        if (tokenId == 103681193130065252982901595567548306120064382605014199407032809746496497403136) {
+            tokenId = 405004660664317394464459357685735570781501494550836716433721913072251942981;
+        }
         emit StakeTicketBurn(
             tokenId,
             saddress
