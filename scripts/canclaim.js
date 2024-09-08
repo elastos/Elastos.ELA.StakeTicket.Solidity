@@ -21,7 +21,7 @@ contract = new web3.eth.Contract([{
     ],
     "stateMutability": "view",
     "type": "function"
-}],"0xEb034B34CB567fA8958a98151e5F9531555E3F05");
+}],"0x06D49BB1F338420E1d8577829C079DCB4cb5eF25");
 // 读取val值
 let tokenID = BigInt("103681193130065252982901595567548306120064382605014199407032809746496497403136")
 let hex_tokenID = "0x00e53979c8afbd73b2700fc6a62b3fe9bbbadecfd7d675ff48ae63abc1edb845"

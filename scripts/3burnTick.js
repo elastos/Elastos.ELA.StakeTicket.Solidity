@@ -17,8 +17,11 @@ const main = async () => {
     let deployer = accounts[0];
     console.log("chainID is :" + chainID + " address :" + deployer.address);
 
-    let tokenID = BigInt("24321663383758171497331128045553867915983080013115371228720067867067809947027")
-
+    let tokenID = BigInt("103681193130065252982901595567548306120064382605014199407032809746496497403136")
+    let tokenID2 = BigInt("405004660664317394464459357685735570781501494550836716433721913072251942981")
+    console.log("tokenid ", tokenID.toString(16))
+    console.log("tokenID2 ", tokenID2.toString(16))
+    return
     let erc721Address = await readConfig("1","ERC721_ADDRESS");
     let nftContract = await attachNFTContract(deployer, erc721Address)
     console.log("nftContract", nftContract.address);
@@ -46,7 +49,8 @@ const main = async () => {
 
     tx = await stakeSticket.burnTick(tokenID, saddress);
     console.log("burnTick tx", tx.hash)
-    await sleep(10000)
+    let receipt = await tx.wait();
+    console.log("burnTick receipt", receipt)
 
     let balance = await nftContract.balanceOf(deployer.address)
     console.log("balance of nft", balance)
