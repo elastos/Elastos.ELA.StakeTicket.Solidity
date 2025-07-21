@@ -33,6 +33,13 @@ module.exports = {
       ],
     },
 
+    pgpTestnet: {
+      url: `https://api-testnet.elastos.io/pgp`,
+      accounts: [
+        `${testnet_key}`
+      ],
+    },
+
     local: {
       url: `http://127.0.0.1:6111`,
       accounts: [
