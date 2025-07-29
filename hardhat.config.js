@@ -33,7 +33,7 @@ module.exports = {
       ],
     },
 
-    pgpTestnet: {
+    pgp_testnet: {
       url: `https://api-testnet.elastos.io/pgp`,
       accounts: [
         `${testnet_key}`
@@ -57,6 +57,21 @@ module.exports = {
       blockGasLimit: 8000000
     }
 
+  },
+  etherscan: {
+    apiKey: {
+      "pgp_testnet": "empty"
+    },
+    customChains: [
+      {
+        network: "pgp_testnet",
+        chainId: 12345,
+        urls: {
+          apiURL: "https://pgp-testnet.elastos.io:443/api",
+          browserURL: "https://pgp-testnet.elastos.io:443"
+        }
+      },
+    ]
   },
   solidity: {
     version: "0.7.6",

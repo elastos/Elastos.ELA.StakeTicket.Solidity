@@ -16,3 +16,4 @@ contracts/.DS_Store
 scripts/config/
 yarn.lock
 package-lock.json
+yarn.lock
