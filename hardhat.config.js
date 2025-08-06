@@ -46,6 +46,12 @@ module.exports = {
          `${local_key}`
       ]
     },
+    eco_mainnet: {
+      url: `https://api.elastos.io/esc`,
+      accounts: [
+        `${private_key}`
+      ],
+    },
 
     hardhat:{
       chainId:100,
@@ -71,6 +77,14 @@ module.exports = {
           browserURL: "https://pgp-testnet.elastos.io:443"
         }
       },
+      {
+        network: "eco_mainnet",
+        chainId: 12343,
+        urls: {
+          apiURL: "https://api.elastos.io/esc",
+          browserURL: "https://api.elastos.io/esc"
+        }
+      }
     ]
   },
   solidity: {
