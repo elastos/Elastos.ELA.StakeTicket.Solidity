@@ -10,7 +10,7 @@ dotenv.config({path: __dirname + '/.env'});
 const { private_key, internal_url,local_key,testnet_key } = process.env;
 
 module.exports = {
-  
+
   networks: {
     mainnet: {
       url: `https://api.elastos.io/esc`,
@@ -33,10 +33,10 @@ module.exports = {
       ],
     },
 
-    pgp_testnet: {
-      url: `https://api-testnet.elastos.io/pgp`,
+    pgp: {
+      url: `https://api.elastos.io/pgp`,
       accounts: [
-        `${testnet_key}`
+        `${private_key}`
       ],
     },
 
@@ -70,11 +70,11 @@ module.exports = {
     },
     customChains: [
       {
-        network: "pgp_testnet",
-        chainId: 12345,
+        network: "pgp",
+        chainId: 860621,
         urls: {
-          apiURL: "https://pgp-testnet.elastos.io:443/api",
-          browserURL: "https://pgp-testnet.elastos.io:443"
+          apiURL: "https://pgp.elastos.io:443/api",
+          browserURL: "https://pgp.elastos.io:443"
         }
       },
       {
