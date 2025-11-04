@@ -34,7 +34,7 @@ module.exports = {
     },
 
     pgp: {
-      url: `https://api.elastos.io/pgp`,
+      url: `https://api.elastos.io/pg`,
       accounts: [
         `${private_key}`
       ],
